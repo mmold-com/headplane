@@ -15,28 +15,28 @@ export function formatTimeDelta(date: Date): string {
   const months = Math.floor(days / 30);
 
   if (minutes < 60) {
-    return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    return `${minutes} 分鐘前`;
   }
 
   if (hours < 24) {
     const remainingMinutes = minutes % 60;
     if (remainingMinutes === 0) {
-      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+      return `${hours} 小時前`;
     }
-    return `${hours} hour${hours !== 1 ? "s" : ""}, ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""} ago`;
+    return `${hours} 小時 ${remainingMinutes} 分鐘前`;
   }
 
   if (days < 30) {
     const remainingHours = hours % 24;
     if (remainingHours === 0) {
-      return `${days} day${days !== 1 ? "s" : ""} ago`;
+      return `${days} 天前`;
     }
-    return `${days} day${days !== 1 ? "s" : ""}, ${remainingHours} hour${remainingHours !== 1 ? "s" : ""} ago`;
+    return `${days} 天 ${remainingHours} 小時前`;
   }
 
   const remainingDays = days % 30;
   if (remainingDays === 0) {
-    return `${months} month${months !== 1 ? "s" : ""} ago`;
+    return `${months} 個月前`;
   }
-  return `${months} month${months !== 1 ? "s" : ""}, ${remainingDays} day${remainingDays !== 1 ? "s" : ""} ago`;
+  return `${months} 個月 ${remainingDays} 天前`;
 }

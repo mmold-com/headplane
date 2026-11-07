@@ -162,13 +162,12 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
         ) : null}
         {undeclaredTags.length > 0 ? (
           <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
-            {undeclaredTags.join(", ")} not declared under{" "}
-            <code className="font-mono">tagOwners</code> 中宣告，因此規則不會匹配 標籤。請先將 標籤
-            加入{" "}
+            標籤 {undeclaredTags.join("、")} 尚未在原則的{" "}
+            <code className="font-mono">tagOwners</code> 中宣告，因此規則不會匹配。請先在
             <Link styled to="/acls">
               存取控制
             </Link>
-            .
+            中定義這些標籤。
           </p>
         ) : null}
         <p className="mt-2 text-sm opacity-50">

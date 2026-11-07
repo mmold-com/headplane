@@ -39,7 +39,7 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
   const headscaleLiveStore = context.get(headscaleLiveStoreContext);
 
   if (!params.id) {
-    throw new Error("No machine ID provided");
+    throw new Error("未提供裝置 ID");
   }
 
   if (params.id.endsWith(".ico")) {
@@ -285,12 +285,12 @@ export default function Page({
       >
         <div className="flex flex-col gap-1">
           <Attribute
-            name="Creator"
+            name="建立者"
             value={node.user ? getUserDisplayName(node.user) : "由標籤管理"}
           />
           <Attribute name="裝置名稱" value={node.givenName} />
           <Attribute
-            name="OS hostname"
+            name="作業系統主機名稱"
             tooltip="OS hostname is published by the machine’s operating system and is used as the default name for the machine."
             value={node.name}
           />
@@ -300,28 +300,24 @@ export default function Page({
               <Attribute name="Tailscale 版本" value={getTSVersion(stats)} />
             </>
           ) : undefined}
-          <Attribute
-            name="ID"
-            tooltip="ID for this machine. Used in the Headscale API."
-            value={node.id}
-          />
+          <Attribute name="ID" tooltip="此裝置的識別碼，供 Headscale API 使用。" value={node.id} />
           <Attribute
             isCopyable
             name="節點金鑰"
             tooltip="用於唯一識別此裝置的公開金鑰。"
             value={node.nodeKey}
           />
-          <Attribute name="Created" value={new Date(node.createdAt).toLocaleString()} />
+          <Attribute name="建立時間" value={new Date(node.createdAt).toLocaleString()} />
           <Attribute
             name="上次連線"
             value={node.online ? "已連線" : new Date(node.lastSeen).toLocaleString()}
           />
           <Attribute
             name="金鑰到期時間"
-            value={!isNoExpiry(node.expiry) ? new Date(node.expiry!).toLocaleString() : "從未登入"}
+            value={!isNoExpiry(node.expiry) ? new Date(node.expiry!).toLocaleString() : "永不到期"}
           />
           {magic ? (
-            <Attribute isCopyable name="Domain" value={`${node.givenName}.${magic}`} />
+            <Attribute isCopyable name="網域名稱" value={`${node.givenName}.${magic}`} />
           ) : undefined}
         </div>
         <div className="flex flex-col gap-1">
@@ -355,7 +351,7 @@ export default function Page({
             />
           ) : undefined}
           {stats?.Endpoints ? (
-            <Attribute name="Endpoints" value={stats?.Endpoints?.join("\n") ?? "—"} />
+            <Attribute name="連線端點" value={stats?.Endpoints?.join("\n") ?? "—"} />
           ) : undefined}
           {stats ? (
             <>
@@ -363,20 +359,20 @@ export default function Page({
                 用戶端連線狀態
               </p>
               <Attribute
-                name="Varies"
+                name="依目的地改變"
                 tooltip="裝置是否位於會依目的地改變對外 IP 位址的 NAT 環境中。"
-                value={stats.NetInfo?.MappingVariesByDestIP ? "Yes" : "No"}
+                value={stats.NetInfo?.MappingVariesByDestIP ? "是" : "否"}
               />
               <Attribute
-                name="Hairpinning"
+                name="NAT 回送"
                 tooltip="裝置是否需要透過 NAT 回送功能建立連線。"
-                value={stats.NetInfo?.HairPinning ? "Yes" : "No"}
+                value={stats.NetInfo?.HairPinning ? "是" : "否"}
               />
-              <Attribute name="IPv6" value={stats.NetInfo?.WorkingIPv6 ? "Yes" : "No"} />
-              <Attribute name="UDP" value={stats.NetInfo?.WorkingUDP ? "Yes" : "No"} />
-              <Attribute name="UPnP" value={stats.NetInfo?.UPnP ? "Yes" : "No"} />
-              <Attribute name="PCP" value={stats.NetInfo?.PCP ? "Yes" : "No"} />
-              <Attribute name="NAT-PMP" value={stats.NetInfo?.PMP ? "Yes" : "No"} />
+              <Attribute name="IPv6" value={stats.NetInfo?.WorkingIPv6 ? "是" : "否"} />
+              <Attribute name="UDP" value={stats.NetInfo?.WorkingUDP ? "是" : "否"} />
+              <Attribute name="UPnP" value={stats.NetInfo?.UPnP ? "是" : "否"} />
+              <Attribute name="PCP" value={stats.NetInfo?.PCP ? "是" : "否"} />
+              <Attribute name="NAT-PMP" value={stats.NetInfo?.PMP ? "是" : "否"} />
             </>
           ) : undefined}
         </div>

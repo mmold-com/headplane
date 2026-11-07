@@ -108,7 +108,7 @@ export default function HeadplaneUserRow({
 function mapRoleToName(role: Role) {
   switch (role) {
     case "owner":
-      return "Owner";
+      return "擁有者";
     case "admin":
       return "管理員";
     case "network_admin":
@@ -122,6 +122,6 @@ function mapRoleToName(role: Role) {
     case "member":
       return <p className="opacity-50">成員</p>;
     default:
-      return "Unknown";
+      return "未知角色";
   }
 }
