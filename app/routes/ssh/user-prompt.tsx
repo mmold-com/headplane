@@ -14,7 +14,7 @@ export default function UserPrompt({ hostname }: UserPromptProps) {
   return (
     <div className="flex h-screen items-center justify-center">
       <Card>
-        <Card.Title>Enter Username</Card.Title>
+        <Card.Title>輸入使用者名稱</Card.Title>
         <Card.Text className="mb-4">
           Enter the username you want to use to connect to <Code>{hostname}</Code>
           {". "}
@@ -49,9 +49,9 @@ export default function UserPrompt({ hostname }: UserPromptProps) {
           <Input
             labelHidden
             type="text"
-            label="Username"
+            label="使用者名稱"
             name="user"
-            placeholder="Username"
+            placeholder="使用者名稱"
             className="mb-2"
             required
           />

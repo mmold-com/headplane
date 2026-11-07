@@ -30,7 +30,7 @@ export default function LinkUser({
           machines they can manage and enables self-service features.
         </Text>
         {headscaleUsers.length === 0 ? (
-          <Notice>All Headscale users are already linked to other accounts.</Notice>
+          <Notice>所有 Headscale 使用者均已連結至其他帳號。</Notice>
         ) : (
           <>
             <input name="action_id" type="hidden" value="link_user" />
@@ -45,7 +45,7 @@ export default function LinkUser({
               name="headscale_user_id"
               required
             >
-              <option value="">Select a Headscale user...</option>
+              <option value="">選擇 Headscale 使用者…</option>
               {headscaleUsers.map((u) => (
                 <option key={u.id} value={u.id}>
                   {u.name}

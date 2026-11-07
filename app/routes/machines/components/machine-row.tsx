@@ -121,7 +121,7 @@ export default function MachineRow({
               </p>
             </>
           ) : (
-            <p className="text-sm opacity-50">Unknown</p>
+            <p className="text-sm opacity-50">未知</p>
           )}
         </td>
       ) : undefined}

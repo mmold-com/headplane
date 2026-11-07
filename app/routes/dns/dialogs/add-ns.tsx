@@ -46,21 +46,21 @@ export default function AddNameserver({ nameservers }: Props) {
 
   return (
     <Dialog onOpenChange={(isOpen) => !isOpen && form.reset()}>
-      <Button>Add nameserver</Button>
+      <Button>新增名稱伺服器</Button>
       <DialogPanel>
-        <Title className="mb-4">Add nameserver</Title>
+        <Title className="mb-4">新增名稱伺服器</Title>
         <input name="action_id" type="hidden" value="add_ns" />
         <Input
           {...form.field("ns")}
           description="Use this IPv4 or IPv6 address to resolve names."
           required
-          label="Nameserver"
+          label="名稱伺服器"
           placeholder="1.2.3.4"
         />
         <div className="mt-8 flex items-center justify-between">
           <div className="block">
             <div className="inline-flex items-center gap-2">
-              <Text className="font-semibold">Restrict to domain</Text>
+              <Text className="font-semibold">限定網域</Text>
               <Tooltip content="Only clients that support split DNS (Tailscale v1.8 or later for most platforms) will use this nameserver. Older clients will ignore it.">
                 <Chip
                   className={cn("inline-flex items-center")}
@@ -69,10 +69,10 @@ export default function AddNameserver({ nameservers }: Props) {
                 />
               </Tooltip>
             </div>
-            <Text className="text-sm">This nameserver will only be used for some domains.</Text>
+            <Text className="text-sm">此名稱伺服器只用於指定網域。</Text>
           </div>
           <Switch
-            label="Split DNS"
+            label="分割 DNS"
             checked={split}
             onCheckedChange={(checked) => {
               form.setValue("split_name", checked ? "" : "global");
@@ -81,13 +81,8 @@ export default function AddNameserver({ nameservers }: Props) {
         </div>
         {split ? (
           <>
-            <Text className="mt-8 font-semibold">Domain</Text>
-            <Input
-              {...form.field("split_name")}
-              required
-              label="Domain"
-              placeholder="example.com"
-            />
+            <Text className="mt-8 font-semibold">網域</Text>
+            <Input {...form.field("split_name")} required label="網域" placeholder="example.com" />
             <Text className="text-sm">
               Only single-label or fully-qualified queries matching this suffix should use the
               nameserver.

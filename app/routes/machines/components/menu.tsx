@@ -155,14 +155,14 @@ export default function MachineMenu({
           {isFullButton ? (
             <>
               <Cog className="h-5" />
-              <p>Machine Settings</p>
+              <p>裝置設定</p>
             </>
           ) : (
             <Ellipsis className="h-5" />
           )}
         </MenuTrigger>
         <MenuContent>
-          <MenuItem onClick={() => setModal("rename")}>Edit machine name</MenuItem>
+          <MenuItem onClick={() => setModal("rename")}>編輯裝置名稱</MenuItem>
           {supportsDisablingKeyExpiry && (
             <MenuItem
               onClick={() =>
@@ -179,10 +179,10 @@ export default function MachineMenu({
               {isNoExpiry(node.expiry) ? "Enable" : "Disable"} key expiry
             </MenuItem>
           )}
-          <MenuItem onClick={() => setModal("routes")}>Edit route settings</MenuItem>
-          <MenuItem onClick={() => setModal("tags")}>Edit ACL tags</MenuItem>
+          <MenuItem onClick={() => setModal("routes")}>編輯路由設定</MenuItem>
+          <MenuItem onClick={() => setModal("tags")}>編輯 ACL 標籤</MenuItem>
           {supportsNodeOwnerChange && (
-            <MenuItem onClick={() => setModal("move")}>Change owner</MenuItem>
+            <MenuItem onClick={() => setModal("move")}>變更擁有者</MenuItem>
           )}
           <MenuSeparator />
           {!isNoExpiry(node.expiry) && (

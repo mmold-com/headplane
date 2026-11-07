@@ -22,7 +22,7 @@ export function ExpiryTag({ variant, expiry }: ExpiryTagProps) {
             with Tailscale on the machine to re-enable it.
           </>
         ) : (
-          <>This machine has key expiry disabled and will never need to re-authenticate.</>
+          <>此裝置已停用金鑰到期，不需定期重新驗證。</>
         )
       }
     >

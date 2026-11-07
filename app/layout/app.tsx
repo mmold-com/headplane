@@ -129,7 +129,7 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
           <StatusBanner
             className="mb-4"
             dismissable={false}
-            title="Headscale Unreachable"
+            title="無法連線至 Headscale"
             variant="critical"
           >
             Unable to connect to the Headscale server. Data shown may be stale and changes cannot be

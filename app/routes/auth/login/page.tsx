@@ -60,6 +60,7 @@ export async function loader({ request, context, url }: Route.LoaderArgs) {
   const oidcErrorCodes = oidcStatus?.state === "error" ? [oidcStatus.error.code] : [];
 
   return {
+    googleOnly: !!config.oidc?.disable_api_key_login || !!process.env.MMOLD_OWNER_EMAIL,
     isCookieSecureEnabled: config.server.cookie_secure,
     isOidcConnectorEnabled,
     oidcErrorCodes,
@@ -77,7 +78,8 @@ function logLoginOidcError(context: string, error: OidcError): void {
 }
 
 export default function Page({ loaderData, actionData }: Route.ComponentProps) {
-  const { isCookieSecureEnabled, isOidcConnectorEnabled, oidcErrorCodes, urlState } = loaderData;
+  const { googleOnly, isCookieSecureEnabled, isOidcConnectorEnabled, oidcErrorCodes, urlState } =
+    loaderData;
 
   const [showCookieWarning, setShowCookieWarning] = useState(false);
   const [params] = useSearchParams();
@@ -127,7 +129,7 @@ export default function Page({ loaderData, actionData }: Route.ComponentProps) {
         ) : showCookieWarning ? (
           <Card className="m-4 mb-4 max-w-md border border-red-500 sm:m-0 sm:mb-4">
             <div className="flex items-center justify-between gap-4">
-              <Card.Title className="text-red-500">Configuration Issue</Card.Title>
+              <Card.Title className="text-red-500">設定問題</Card.Title>
               <AlertCircle className="mb-2 h-6 w-6 text-red-500" />
             </div>
             {showCookieWarning ? (
@@ -139,41 +141,47 @@ export default function Page({ loaderData, actionData }: Route.ComponentProps) {
                   styled
                   to="https://headplane.net/configuration/common-issues#issue-logging-in-does-not-do-anything"
                 >
-                  Learn more.
+                  了解更多。
                 </Link>
               </Card.Text>
             ) : undefined}
           </Card>
         ) : undefined}
         <Card className="m-4 max-w-md sm:m-0">
-          <Card.Title>Welcome to Headplane</Card.Title>
-          <Form method="POST">
+          <Card.Title>歡迎使用 Headplane</Card.Title>
+          {googleOnly ? (
             <Card.Text>
-              Enter an API key to authenticate with Headplane. You can generate one by running{" "}
-              <Code>headscale apikeys create</Code> in your terminal.
+              請使用 Google 帳號登入。管理介面僅限管理者；VPN 使用者須先經 seuchong@gmail.com 核准。
             </Card.Text>
-            <Input
-              className="mt-8 mb-2"
-              required
-              label="API Key"
-              labelHidden
-              name="api_key"
-              placeholder="API Key"
-              type="password"
-            />
-            {actionData?.success === false ? (
-              <Card.Text className="mb-2 text-sm text-red-600 dark:text-red-300">
-                {actionData.message}
+          ) : (
+            <Form method="POST">
+              <Card.Text>
+                Enter an API key to authenticate with Headplane. You can generate one by running{" "}
+                <Code>headscale apikeys create</Code> in your terminal.
               </Card.Text>
-            ) : undefined}
-            <Button className="w-full" type="submit" variant="heavy">
-              Sign In
-            </Button>
-          </Form>
+              <Input
+                className="mt-8 mb-2"
+                required
+                label="API 金鑰"
+                labelHidden
+                name="api_key"
+                placeholder="API 金鑰"
+                type="password"
+              />
+              {actionData?.success === false ? (
+                <Card.Text className="mb-2 text-sm text-red-600 dark:text-red-300">
+                  {actionData.message}
+                </Card.Text>
+              ) : undefined}
+              <Button className="w-full" type="submit" variant="heavy">
+                登入
+              </Button>
+            </Form>
+          )}
           {isOidcConnectorEnabled ? (
             <RouterLink to="/oidc/start" prefetch="none" reloadDocument>
               <Button className="mt-2 w-full" disabled={oidcErrorCodes.length > 0} variant="light">
-                Single Sign-On
+                使用 Google 帳號登入
               </Button>
             </RouterLink>
           ) : undefined}

@@ -191,8 +191,8 @@ export const action = userAction;
 export default function Page({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <h1 className="mb-1.5 text-2xl font-medium">Users</h1>
-      <p className="text-md mb-8">Manage the users in your network and their permissions.</p>
+      <h1 className="mb-1.5 text-2xl font-medium">使用者</h1>
+      <p className="text-md mb-8">管理網路內的使用者及其權限。</p>
       <ManageBanner isDisabled={!loaderData.writable} oidc={loaderData.oidc} />
 
       {loaderData.apiError && (
@@ -208,7 +208,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       )}
 
       <section>
-        <h2 className="mb-3 text-lg font-medium">Headplane Users</h2>
+        <h2 className="mb-3 text-lg font-medium">Headplane 使用者</h2>
         {loaderData.headplaneUsers.length === 0 ? (
           <p className="text-sm text-mist-600 dark:text-mist-300">
             No users have signed into Headplane yet.
@@ -218,12 +218,12 @@ export default function Page({ loaderData }: Route.ComponentProps) {
             <table className="w-full min-w-[640px] table-auto rounded-lg">
               <thead className="text-mist-600 dark:text-mist-300">
                 <tr className="px-0.5 text-left">
-                  <th className="pb-2 text-xs font-bold uppercase">User</th>
-                  <th className="pb-2 text-xs font-bold uppercase">Role</th>
-                  <th className="pb-2 text-xs font-bold uppercase">Last Login</th>
-                  <th className="pb-2 text-xs font-bold uppercase">Status</th>
+                  <th className="pb-2 text-xs font-bold uppercase">使用者</th>
+                  <th className="pb-2 text-xs font-bold uppercase">角色</th>
+                  <th className="pb-2 text-xs font-bold uppercase">上次登入</th>
+                  <th className="pb-2 text-xs font-bold uppercase">狀態</th>
                   <th className="w-12 pb-2">
-                    <span className="sr-only">Actions</span>
+                    <span className="sr-only">操作</span>
                   </th>
                 </tr>
               </thead>
@@ -253,7 +253,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 
       {!loaderData.apiError && loaderData.unlinkedHeadscaleUsers.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-1 text-lg font-medium">Unlinked Headscale Users</h2>
+          <h2 className="mb-1 text-lg font-medium">尚未連結的 Headscale 使用者</h2>
           <p className="mb-3 text-sm text-mist-600 dark:text-mist-300">
             These Headscale users are not linked to a Headplane account and cannot be managed
             through Headplane.
@@ -262,11 +262,11 @@ export default function Page({ loaderData }: Route.ComponentProps) {
             <table className="w-full min-w-[640px] table-auto rounded-lg">
               <thead className="text-mist-600 dark:text-mist-300">
                 <tr className="px-0.5 text-left">
-                  <th className="pb-2 text-xs font-bold uppercase">User</th>
-                  <th className="pb-2 text-xs font-bold uppercase">Created At</th>
-                  <th className="pb-2 text-xs font-bold uppercase">Status</th>
+                  <th className="pb-2 text-xs font-bold uppercase">使用者</th>
+                  <th className="pb-2 text-xs font-bold uppercase">建立時間</th>
+                  <th className="pb-2 text-xs font-bold uppercase">狀態</th>
                   <th className="w-12 pb-2">
-                    <span className="sr-only">Actions</span>
+                    <span className="sr-only">操作</span>
                   </th>
                 </tr>
               </thead>

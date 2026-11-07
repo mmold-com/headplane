@@ -55,7 +55,7 @@ export default function HeadplaneUserRow({
             {displayUsername && <p className="text-sm opacity-50">{displayUsername}</p>}
             {displayEmail && <p className="text-sm opacity-50">{displayEmail}</p>}
             {!user.headscaleUserId && (
-              <p className="text-xs text-amber-600 dark:text-amber-400">Not linked</p>
+              <p className="text-xs text-amber-600 dark:text-amber-400">尚未連結</p>
             )}
             {user.groups.length > 0 && (
               <div className="mt-1 flex flex-wrap gap-1">
@@ -86,7 +86,7 @@ export default function HeadplaneUserRow({
             </p>
           </span>
         ) : (
-          <p className="text-sm text-mist-600 dark:text-mist-300">No machines</p>
+          <p className="text-sm text-mist-600 dark:text-mist-300">沒有裝置</p>
         )}
       </td>
       <td className="py-2 pr-0.5">
@@ -120,7 +120,7 @@ function mapRoleToName(role: Role) {
     case "viewer":
       return "Viewer";
     case "member":
-      return <p className="opacity-50">Member</p>;
+      return <p className="opacity-50">成員</p>;
     default:
       return "Unknown";
   }

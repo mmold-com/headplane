@@ -97,7 +97,7 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
           {tags.length === 0 ? (
             <TableList.Item className="flex flex-col items-center gap-2.5 py-4 opacity-70">
               <TagsIcon />
-              <p className="font-semibold">No tags are set on this machine</p>
+              <p className="font-semibold">此裝置尚未設定標籤</p>
             </TableList.Item>
           ) : (
             tags.map((item) => (
@@ -124,13 +124,13 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
 
         <div className="mt-2 flex items-center gap-2">
           <Input
-            aria-label="Add a tag"
+            aria-label="新增標籤"
             className="w-full"
             value={tag}
             onChange={setTag}
             invalid={tag.length > 0 && tagIsInvalid}
             placeholder="tag:example"
-            label="Tag"
+            label="標籤"
             labelHidden
           />
           <Button
@@ -167,7 +167,7 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
             {undeclaredTags.length === 1 ? "it" : "them"}. Declare{" "}
             {undeclaredTags.length === 1 ? "it" : "them"} in{" "}
             <Link styled to="/acls">
-              Access Control
+              存取控制
             </Link>
             .
           </p>

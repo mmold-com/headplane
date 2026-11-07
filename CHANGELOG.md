@@ -1,5 +1,10 @@
 # Next
 
+## Changes
+
+- MMold：主要操作介面採用台灣繁體中文；設定 MMOLD_OWNER_EMAIL 時，管理介面只允許已驗證的 Google 擁有者登入。
+- 設定 disable_api_key_login 時，伺服器端拒絕 API 金鑰登入。
+
 # 0.8.2 (October 22, 2026)
 
 This release contains an important security update for Headplane that protects against the [compromised eMudhra intermediate CAs](https://emudhra.com/en/post/certificate-security-incident) with Node.js 24.22.1 and Go 1.27.3. Any native installations should also upgrade to these versions and rebuild the agent.

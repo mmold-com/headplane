@@ -48,7 +48,7 @@ export default function Rename({ machine, magic, isOpen, setIsOpen }: RenameProp
         </Text>
         <input name="action_id" type="hidden" value="rename" />
         <input name="node_id" type="hidden" value={machine.id} />
-        <Input {...form.field("name")} required label="Machine name" placeholder="Machine name" />
+        <Input {...form.field("name")} required label="裝置名稱" placeholder="裝置名稱" />
         {magic ? (
           name.length > 0 && name !== machine.givenName ? (
             <p className="mt-2 text-sm leading-tight text-mist-600 dark:text-mist-300">

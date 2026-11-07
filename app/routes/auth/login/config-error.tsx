@@ -9,7 +9,7 @@ export function OidcDiscoveryFailedNotice() {
   return (
     <Card className="m-4 mb-4 max-w-md border border-yellow-500 sm:m-0 sm:mb-4">
       <div className="flex items-center justify-between gap-4">
-        <Card.Title className="text-yellow-500">SSO Temporarily Unavailable</Card.Title>
+        <Card.Title className="text-yellow-500">Google 登入暫時無法使用</Card.Title>
         <CloudOff className="mb-2 h-6 w-6 text-yellow-500" />
       </div>
       <Card.Text className="text-sm">
@@ -24,7 +24,7 @@ export function OidcConfigErrorNotice({ errors }: { errors: OidcErrorCode[] }) {
   return (
     <Card className="m-4 mb-4 max-w-md border border-red-500 sm:m-0 sm:mb-4">
       <div className="flex items-center justify-between gap-4">
-        <Card.Title className="text-red-500">Authentication Error</Card.Title>
+        <Card.Title className="text-red-500">驗證失敗</Card.Title>
         <AlertCircle className="mb-2 h-6 w-6 text-red-500" />
       </div>
       <Card.Text className="text-sm">

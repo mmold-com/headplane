@@ -109,10 +109,10 @@ export default function AddAuthKey({
       </Button>
       {createdKey ? (
         <DialogPanel variant="unactionable">
-          <Title>Pre-auth key created</Title>
-          <Text>Copy this key now. You will not be able to see the full key again.</Text>
+          <Title>預先授權金鑰已建立</Title>
+          <Text>請立即複製此金鑰，之後將無法再次查看完整內容。</Text>
           <CodeBlock className="mt-4">{createdKey}</CodeBlock>
-          <Text className="mt-4 text-sm">To register a device with this key:</Text>
+          <Text className="mt-4 text-sm">使用此金鑰註冊裝置：</Text>
           <CodeBlock className="mt-1">
             {`tailscale up --login-server=${url} --authkey ${createdKey}`}
           </CodeBlock>
@@ -132,17 +132,17 @@ export default function AddAuthKey({
           }}
           isDisabled={fetcher.state !== "idle" || !canSubmit}
         >
-          <Title>Generate auth key</Title>
+          <Title>產生授權金鑰</Title>
 
           {!selfServiceOnly && (
             <div className="mb-4 flex items-center justify-between gap-2">
               <div>
-                <Text className="font-semibold">Tag-only key</Text>
-                <Text className="text-sm">Create a key owned by ACL tags instead of a user.</Text>
+                <Text className="font-semibold">標籤專用金鑰</Text>
+                <Text className="text-sm">建立由 ACL 標籤擁有的金鑰。</Text>
               </div>
               <Switch
                 defaultChecked={tagOnly}
-                label="Tag-only"
+                label="僅限標籤"
                 onCheckedChange={() => setTagOnly(!tagOnly)}
               />
             </div>
@@ -158,9 +158,9 @@ export default function AddAuthKey({
               }
               disabled={selfServiceOnly}
               required
-              label="User"
+              label="使用者"
               onValueChange={(value) => setUserId(value)}
-              placeholder="Select a user"
+              placeholder="選擇使用者"
               value={userId}
               items={availableUsers.map((user) => ({
                 value: user.id,
@@ -173,7 +173,7 @@ export default function AddAuthKey({
             className="mb-2"
             description="Comma-separated tags (e.g. server, prod). The tag: prefix is added automatically."
             required={tagOnly}
-            label="ACL Tags"
+            label="ACL 標籤"
             onChange={(value) => setTags(value)}
             placeholder="server, prod"
             value={tags}
@@ -182,25 +182,25 @@ export default function AddAuthKey({
             defaultValue={90}
             description="Set this key to expire after a certain number of days."
             required
-            label="Key Expiration"
+            label="金鑰到期時間"
             max={365_000}
             min={1}
             name="expiry"
           />
           <div className="mt-6 flex items-center justify-between gap-2">
             <div>
-              <Text className="font-semibold">Reusable</Text>
-              <Text className="text-sm">Use this key to authenticate more than one device.</Text>
+              <Text className="font-semibold">可重複使用</Text>
+              <Text className="text-sm">允許多個裝置使用此金鑰進行驗證。</Text>
             </div>
             <Switch
               defaultChecked={reusable}
-              label="Reusable"
+              label="可重複使用"
               onCheckedChange={() => setReusable(!reusable)}
             />
           </div>
           <div className="mt-6 flex items-center justify-between gap-2">
             <div>
-              <Text className="font-semibold">Ephemeral</Text>
+              <Text className="font-semibold">暫時性</Text>
               <Text className="text-sm">
                 Devices authenticated with this key will be automatically removed once they go
                 offline.{" "}
@@ -211,7 +211,7 @@ export default function AddAuthKey({
             </div>
             <Switch
               defaultChecked={ephemeral}
-              label="Ephemeral"
+              label="暫時性"
               onCheckedChange={() => setEphemeral(!ephemeral)}
             />
           </div>

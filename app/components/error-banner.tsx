@@ -36,7 +36,7 @@ export function getErrorMessage(error: Error | unknown): {
               )}
             </>
           ),
-          title: "Headscale API Error",
+          title: "Headscale API 錯誤",
         };
       }
 
@@ -77,13 +77,13 @@ export function getErrorMessage(error: Error | unknown): {
                 </Code>
               </li>
             </ul>
-            <Card.Text className="mt-4 text-lg font-semibold">Error Details</Card.Text>
+            <Card.Text className="mt-4 text-lg font-semibold">錯誤詳細資料</Card.Text>
             <pre className="mt-2 overflow-x-auto rounded-lg bg-mist-100 p-2 dark:bg-mist-800">
               <code>{JSON.stringify(error.data, null, 2)}</code>
             </pre>
           </>
         ),
-        title: "Invalid response from Headscale API",
+        title: "Headscale API 回應無效",
       };
     }
 
@@ -96,7 +96,7 @@ export function getErrorMessage(error: Error | unknown): {
               Headplane was unable to reach the Headscale API. Please check your network setup and
               configuration to ensure Headplane is able to connect.
             </Card.Text>
-            <Card.Text className="mt-4 text-lg font-semibold">Error Details</Card.Text>
+            <Card.Text className="mt-4 text-lg font-semibold">錯誤詳細資料</Card.Text>
             <pre className="mt-2 overflow-x-auto rounded-lg bg-mist-100 p-2 dark:bg-mist-800">
               {requestUrl}
               <br />
@@ -111,7 +111,7 @@ export function getErrorMessage(error: Error | unknown): {
             </pre>
           </>
         ),
-        title: "Cannot connect to Headscale API",
+        title: "無法連線至 Headscale API",
       };
     }
 
@@ -141,13 +141,13 @@ export function getErrorMessage(error: Error | unknown): {
             </Link>{" "}
             repository with the details below.
           </Card.Text>
-          <Card.Text className="mt-4 text-lg font-semibold">Error Details</Card.Text>
+          <Card.Text className="mt-4 text-lg font-semibold">錯誤詳細資料</Card.Text>
           <pre className="mt-2 overflow-x-auto rounded-lg bg-mist-100 p-2 dark:bg-mist-800">
             <code>{JSON.stringify(error, null, 2)}</code>
           </pre>
         </>
       ),
-      title: "Unexpected Error",
+      title: "發生未預期的錯誤",
     };
   }
 

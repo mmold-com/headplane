@@ -45,23 +45,23 @@ export default function NewMachine(data: NewMachineProps) {
     <>
       <Dialog isOpen={pushDialog} onOpenChange={setPushDialog}>
         <DialogPanel isDisabled={!form.canSubmit}>
-          <Title>Register Machine Key</Title>
-          <Text>The machine key is given when you run the following command on your device:</Text>
+          <Title>註冊裝置金鑰</Title>
+          <Text>在裝置執行下列指令後，即可取得裝置金鑰：</Text>
           <CodeBlock className="mb-4">{`tailscale up --login-server=${data.server}`}</CodeBlock>
           <input name="action_id" type="hidden" value="register" />
           <Input
             {...form.field("register_key")}
             required
-            label="Machine Key"
+            label="裝置金鑰"
             placeholder="hskey-authreq-XXXXXXXXXXXXXXXXXXXXXXXX"
             description="Paste the registration URL or full key shown by tailscale up."
           />
           <Select
             required
-            label="Owner"
+            label="擁有者"
             name="user"
             onValueChange={(v) => form.setValue("user", v)}
-            placeholder="Select a user"
+            placeholder="選擇使用者"
             items={sortUsersByDisplayName(data.users).map((user) => ({
               // Headscale's v1/node/register endpoint resolves the owner by
               // username via GetUserByName, so we must pass user.name (not id).
@@ -82,7 +82,7 @@ export default function NewMachine(data: NewMachineProps) {
           >
             <div className="flex items-center gap-x-3">
               <Computer className="w-4" />
-              Register Machine Key
+              註冊裝置金鑰
             </div>
           </MenuItem>
           <MenuItem

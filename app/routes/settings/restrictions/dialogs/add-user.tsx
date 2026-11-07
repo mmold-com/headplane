@@ -33,9 +33,9 @@ export default function AddUser({ users, isDisabled }: AddUserProps) {
 
   return (
     <Dialog>
-      <Button disabled={isDisabled}>Add user</Button>
+      <Button disabled={isDisabled}>新增核准帳號</Button>
       <DialogPanel>
-        <Title>Add user</Title>
+        <Title>新增核准帳號</Title>
         <Text className="mb-4">
           Add this user to a list of allowed users that can authenticate with Headscale via OIDC.
         </Text>
@@ -44,7 +44,7 @@ export default function AddUser({ users, isDisabled }: AddUserProps) {
           {...form.field("user")}
           description="The user to allow for OIDC authentication."
           required
-          label="User"
+          label="使用者"
           placeholder="john_doe"
         />
       </DialogPanel>

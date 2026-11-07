@@ -14,7 +14,7 @@ export function ExitNodeTag({ isEnabled }: ExitNodeTagProps) {
     <Tooltip
       content={
         isEnabled ? (
-          <>This machine is acting as an exit node.</>
+          <>此裝置目前作為出口節點。</>
         ) : (
           <>
             This machine is requesting to be used as an exit node. Review this from the "Edit route

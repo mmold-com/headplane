@@ -5,31 +5,31 @@ import Link from "~/components/link";
 
 export const sshErrors = {
   wasm_missing: {
-    title: "Browser SSH is not available",
+    title: "無法使用瀏覽器 SSH",
     message: "This version of Headplane was not built with browser SSH support.",
     anchor: "#ssh-not-available",
   },
 
   agent_required: {
-    title: "Browser SSH requires the Headplane agent",
+    title: "瀏覽器 SSH 需要 Headplane Agent",
     message: "Browser SSH is only available when the Headplane agent integration is enabled.",
     anchor: "#agent-required",
   },
 
   oidc_required: {
-    title: "Browser SSH requires OIDC authentication",
+    title: "瀏覽器 SSH 需要 OIDC 驗證",
     message: "Browser SSH is only available when OIDC authentication is enabled.",
     anchor: "#oidc-required",
   },
 
   node_not_found: (hostname: string) => ({
-    title: "Node not found",
+    title: "找不到節點",
     message: `No node found with hostname ${hostname}.`,
     anchor: "#node-not-found",
   }),
 
   user_not_linked: {
-    title: "User account not linked",
+    title: "使用者帳號尚未連結",
     message:
       "You'll need to link your user account to a Headscale user before you can use Browser SSH.",
     anchor: "#user-not-linked",

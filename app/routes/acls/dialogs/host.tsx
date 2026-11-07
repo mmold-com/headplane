@@ -58,14 +58,14 @@ export default function HostDialog({
               : "Host names may only contain lowercase letters, numbers and dashes."
           }
           invalid={nameIsInvalid}
-          label="Name"
+          label="名稱"
           onChange={setDraftName}
           placeholder="office"
           value={draftName}
         />
         <Input
           invalid={draftValue.length > 0 && valueIsInvalid}
-          label="Address"
+          label="位址"
           onChange={setDraftValue}
           placeholder="100.64.0.0/24"
           value={draftValue}

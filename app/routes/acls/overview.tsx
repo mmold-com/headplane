@@ -92,9 +92,9 @@ export default function Page({
     if (!parsed.ok) {
       return (
         <div className="p-4">
-          <Notice title="Policy cannot be edited visually" variant="error">
-            The policy could not be parsed ({parsed.error}). Fix it in the <Code>Edit file</Code>{" "}
-            tab and the visual editor will come back.
+          <Notice title="無法以視覺化方式編輯此原則" variant="error">
+            The policy could not be parsed ({parsed.error}). Fix it in the <Code>編輯檔案</Code> tab
+            and the visual editor will come back.
           </Notice>
         </div>
       );
@@ -103,7 +103,7 @@ export default function Page({
     return (
       <div className="flex flex-col gap-4 p-4">
         {parsed.hasComments ? (
-          <Notice title="Comments will be removed" variant="warning">
+          <Notice title="註解將被移除" variant="warning">
             This policy contains comments. Saving a change made in the visual editor rewrites the
             policy and drops them.
           </Notice>
@@ -116,19 +116,19 @@ export default function Page({
   return (
     <div>
       {!access ? (
-        <Notice title="ACL Policy restricted" variant="warning">
+        <Notice title="ACL 原則權限受限" variant="warning">
           You do not have the necessary permissions to edit the Access Control List policy. Please
           contact your administrator to request access or to make changes to the ACL policy.
         </Notice>
       ) : !writable ? (
-        <Notice title="Read-only ACL Policy" variant="error">
+        <Notice title="唯讀 ACL 原則" variant="error">
           The ACL policy mode is most likely set to <Code>file</Code> in your Headscale
           configuration. This means that the ACL file cannot be edited through the web interface. In
           order to resolve this, you'll need to set <Code>policy.mode</Code> to{" "}
           <Code>database</Code> in your Headscale configuration.
         </Notice>
       ) : undefined}
-      <h1 className="mb-4 text-2xl font-medium">Access Control List (ACL)</h1>
+      <h1 className="mb-4 text-2xl font-medium">存取控制清單（ACL）</h1>
       <p className="mb-4 max-w-prose">
         The ACL file is used to define the access control rules for your network. You can find more
         information about the ACL file in the{" "}
@@ -147,36 +147,36 @@ export default function Page({
             "An unknown error occurred while trying to update the ACL policy."}
         </Notice>
       ) : undefined}
-      <Tabs className="mb-4" label="ACL Editor" defaultValue="rules">
+      <Tabs className="mb-4" label="ACL 編輯器" defaultValue="rules">
         <TabsList>
           <TabsTab value="rules">
             <div className="flex items-center gap-2">
               <Shield className="p-1" />
-              <span>Rules</span>
+              <span>規則</span>
             </div>
           </TabsTab>
           <TabsTab value="tags">
             <div className="flex items-center gap-2">
               <TagsIcon className="p-1" />
-              <span>Tags &amp; Groups</span>
+              <span>標籤與群組</span>
             </div>
           </TabsTab>
           <TabsTab value="edit">
             <div className="flex items-center gap-2">
               <Pencil className="p-1" />
-              <span>Edit file</span>
+              <span>編輯檔案</span>
             </div>
           </TabsTab>
           <TabsTab value="diff">
             <div className="flex items-center gap-2">
               <Eye className="p-1" />
-              <span>Preview changes</span>
+              <span>預覽變更</span>
             </div>
           </TabsTab>
           <TabsTab value="preview">
             <div className="flex items-center gap-2">
               <FlaskConical className="p-1" />
-              <span>Preview rules</span>
+              <span>預覽規則</span>
             </div>
           </TabsTab>
         </TabsList>
@@ -234,7 +234,7 @@ export default function Page({
         }}
         variant="heavy"
       >
-        Save
+        儲存
       </Button>
       <Button
         disabled={disabled || fetcher.state !== "idle" || codePolicy === policy}
@@ -260,7 +260,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       <div className="flex flex-col gap-4">
         <Card className="max-w-2xl" variant="flat">
           <div className="flex items-center justify-between gap-4">
-            <Card.Title>ACL Policy Unavailable</Card.Title>
+            <Card.Title>無法取得 ACL 原則</Card.Title>
             <AlertCircle className="mb-2 h-6 w-6 text-red-500" />
           </div>
           <Card.Text>

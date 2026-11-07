@@ -33,9 +33,9 @@ export default function AddGroup({ groups, isDisabled }: AddGroupProps) {
 
   return (
     <Dialog>
-      <Button disabled={isDisabled}>Add group</Button>
+      <Button disabled={isDisabled}>新增群組</Button>
       <DialogPanel>
-        <Title>Add group</Title>
+        <Title>新增群組</Title>
         <Text className="mb-4">
           Add this group to a list of allowed groups that can authenticate with Headscale via OIDC.
         </Text>
@@ -44,7 +44,7 @@ export default function AddGroup({ groups, isDisabled }: AddGroupProps) {
           {...form.field("group")}
           description="The group to allow for OIDC authentication."
           required
-          label="Group"
+          label="群組"
           placeholder="admin"
         />
       </DialogPanel>

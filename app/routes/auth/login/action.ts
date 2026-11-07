@@ -1,12 +1,16 @@
-import { redirect } from "react-router";
+import { data, redirect } from "react-router";
 
-import { authContext, headscaleContext } from "~/server/context";
+import { appConfigContext, authContext, headscaleContext } from "~/server/context";
 import { headscaleErrorMessage, isDataWithApiError } from "~/server/headscale/api/error-client";
 import log from "~/utils/log";
 
 import type { Route } from "./+types/page";
 
 export async function loginAction({ request, context }: Route.LoaderArgs) {
+  const config = context.get(appConfigContext);
+  if (config.oidc?.disable_api_key_login || process.env.MMOLD_OWNER_EMAIL) {
+    throw data("請使用 Google 帳號登入；管理介面不接受 API 金鑰登入。", { status: 403 });
+  }
   const auth = context.get(authContext);
   const headscale = context.get(headscaleContext);
 

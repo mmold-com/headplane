@@ -13,9 +13,9 @@ interface CreateUserProps {
 export default function CreateUser({ isOidc, isDisabled }: CreateUserProps) {
   return (
     <Dialog>
-      <Button disabled={isDisabled}>Add user</Button>
+      <Button disabled={isDisabled}>新增核准帳號</Button>
       <DialogPanel>
-        <Title>Create a Headscale user</Title>
+        <Title>建立 Headscale 使用者</Title>
         <Text className="mb-6">
           This creates a new user in Headscale. The user will appear in the &ldquo;Unlinked
           Headscale Users&rdquo; section until they sign in
@@ -30,13 +30,13 @@ export default function CreateUser({ isOidc, isDisabled }: CreateUserProps) {
             pattern={USERNAME_PATTERN}
             required
             title={USERNAME_RULE}
-            label="Username"
+            label="使用者名稱"
             name="username"
             placeholder="my-new-user"
             type="text"
           />
-          <Input label="Display Name" name="display_name" placeholder="John Doe" type="text" />
-          <Input label="Email" name="email" placeholder="name@example.com" type="email" />
+          <Input label="顯示名稱" name="display_name" placeholder="John Doe" type="text" />
+          <Input label="電子郵件" name="email" placeholder="name@example.com" type="email" />
         </div>
       </DialogPanel>
     </Dialog>

@@ -88,7 +88,7 @@ export default function NamedListDialog({
         <Input
           errorMessage={isDuplicate ? `A ${copy.title} with this name already exists.` : copy.hint}
           invalid={showNameError}
-          label="Name"
+          label="名稱"
           onChange={setDraftName}
           placeholder={`${copy.prefix}example`}
           value={draftName}

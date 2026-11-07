@@ -7,7 +7,7 @@ export function OidcErrorNotice({ code }: { code: string }) {
   return (
     <Card className="m-4 mb-4 max-w-md border border-red-500 sm:m-0 sm:mb-4">
       <div className="flex items-center justify-between gap-4">
-        <Card.Title className="text-red-500">Configuration Issue(s)</Card.Title>
+        <Card.Title className="text-red-500">設定問題</Card.Title>
         <AlertCircle className="mb-2 h-6 w-6 text-red-500" />
       </div>
       {getErrorMessage(code)}

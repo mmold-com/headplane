@@ -12,9 +12,9 @@ interface ExpireAuthKeyProps {
 export default function ExpireAuthKey({ authKey, user }: ExpireAuthKeyProps) {
   return (
     <Dialog>
-      <Button variant="heavy">Expire Key</Button>
+      <Button variant="heavy">使金鑰到期</Button>
       <DialogPanel variant="destructive">
-        <Title>Expire auth key?</Title>
+        <Title>確定使授權金鑰到期？</Title>
         <input name="action_id" type="hidden" value="expire_preauthkey" />
         <input name="user_id" type="hidden" value={user.id} />
         <input name="key_id" type="hidden" value={authKey.id} />

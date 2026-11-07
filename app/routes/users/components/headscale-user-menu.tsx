@@ -68,11 +68,11 @@ export default function HeadscaleUserMenu({
           <Ellipsis className="h-5" />
         </MenuTrigger>
         <MenuContent>
-          {canRename && <MenuItem onClick={() => setModal("rename")}>Rename</MenuItem>}
-          {canEditGroups && <MenuItem onClick={() => setModal("groups")}>Edit groups</MenuItem>}
+          {canRename && <MenuItem onClick={() => setModal("rename")}>重新命名</MenuItem>}
+          {canEditGroups && <MenuItem onClick={() => setModal("groups")}>編輯群組</MenuItem>}
           {(canRename || canEditGroups) && <MenuSeparator />}
           <MenuItem variant="danger" onClick={() => setModal("delete")}>
-            Delete
+            刪除
           </MenuItem>
         </MenuContent>
       </Menu>

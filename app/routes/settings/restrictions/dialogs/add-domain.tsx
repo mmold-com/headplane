@@ -43,9 +43,9 @@ export default function AddDomain({ domains, isDisabled }: AddDomainProps) {
 
   return (
     <Dialog>
-      <Button disabled={isDisabled}>Add domain</Button>
+      <Button disabled={isDisabled}>新增網域</Button>
       <DialogPanel>
-        <Title>Add domain</Title>
+        <Title>新增網域</Title>
         <Text className="mb-4">
           Add this domain to a list of allowed email domains that can authenticate with Headscale
           via OIDC.
@@ -59,7 +59,7 @@ export default function AddDomain({ domains, isDisabled }: AddDomainProps) {
               : "Enter a domain to match users with their email addresses."
           }
           required
-          label="Domain"
+          label="網域"
           placeholder="example.com"
         />
       </DialogPanel>

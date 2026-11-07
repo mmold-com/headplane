@@ -48,15 +48,15 @@ export default function AddRecord({ records }: Props) {
 
   return (
     <Dialog>
-      <Button>Add DNS record</Button>
+      <Button>新增 DNS 紀錄</Button>
       <DialogPanel onSubmit={() => form.reset()}>
-        <Title>Add DNS record</Title>
-        <Text>Enter the domain and IP address for the new DNS record.</Text>
+        <Title>新增 DNS 紀錄</Title>
+        <Text>輸入新 DNS 紀錄的網域與 IP 位址。</Text>
         <div className="mt-4 flex flex-col gap-2">
           <input type="hidden" name="action_id" value="add_record" />
           <Select
             required
-            label="Record Type"
+            label="紀錄類型"
             name="record_type"
             defaultValue={recordType}
             onValueChange={(v) => {
@@ -70,13 +70,13 @@ export default function AddRecord({ records }: Props) {
           <Input
             {...form.field("record_name")}
             required
-            label="Domain"
+            label="網域"
             placeholder="test.example.com"
           />
           <Input
             {...form.field("record_value")}
             required
-            label="IP Address"
+            label="IP 位址"
             placeholder={recordType === "AAAA" ? "2001:db8::ff00:42:8329" : "101.101.101.101"}
           />
           {isDuplicate ? (

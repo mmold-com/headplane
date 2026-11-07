@@ -113,7 +113,7 @@ export default function RulesEditor({
         description="Rules are evaluated top to bottom. Traffic is denied unless a rule allows it."
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "acl", index: null })}
-        title="Access rules"
+        title="存取規則"
       >
         {policy.acls.length === 0 ? (
           <Empty text="No access rules are defined yet." />
@@ -149,7 +149,7 @@ export default function RulesEditor({
         description="Control which nodes can be reached over Tailscale SSH and as which local user."
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "ssh", index: null })}
-        title="SSH rules"
+        title="SSH 規則"
       >
         {policy.ssh.length === 0 ? (
           <Empty text="No SSH rules are defined yet." />
@@ -184,7 +184,7 @@ export default function RulesEditor({
         description="Named IP addresses and CIDR ranges that can be referenced from rules."
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "host", name: null })}
-        title="Hosts"
+        title="主機"
       >
         {hostEntries.length === 0 ? (
           <Empty text="No hosts are defined yet." />

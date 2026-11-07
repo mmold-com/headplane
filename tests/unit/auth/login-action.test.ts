@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 
-import { authContext, headscaleContext } from "~/server/context";
+import { appConfigContext, authContext, headscaleContext } from "~/server/context";
 
 // Helper to create a mock FormData with optional api_key
 function mockFormData(apiKey?: string): FormData {
@@ -46,7 +46,8 @@ interface MockAuth {
 // depending on the context key that is requested.
 function createMockContext({ headscale, auth }: { headscale: MockHeadscale; auth: MockAuth }) {
   return {
-    get: (context: typeof authContext | typeof headscaleContext) => {
+    get: (context: typeof authContext | typeof headscaleContext | typeof appConfigContext) => {
+      if (context === appConfigContext) return { oidc: undefined };
       if (context === authContext) return auth;
       if (context === headscaleContext) return headscale;
       return undefined;

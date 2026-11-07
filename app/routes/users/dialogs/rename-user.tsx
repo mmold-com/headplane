@@ -29,7 +29,7 @@ export default function RenameUser({ user, isOpen, setIsOpen }: RenameProps) {
           pattern={USERNAME_PATTERN}
           required
           title={USERNAME_RULE}
-          label="Username"
+          label="使用者名稱"
           name="new_name"
           placeholder="my-new-name"
         />

@@ -154,7 +154,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         <div className="flex h-screen w-screen items-center justify-center bg-black">
           <Card className="w-screen" variant="flat">
             <div className="flex items-center justify-between gap-4">
-              <Card.Title>Node Offline</Card.Title>
+              <Card.Title>節點離線</Card.Title>
               <WifiOff className="mb-2 h-6 w-6 text-red-500" />
             </div>
             <Card.Text>

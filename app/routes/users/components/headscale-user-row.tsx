@@ -70,7 +70,7 @@ export default function HeadscaleUserRow({
             </p>
           </span>
         ) : (
-          <p className="text-sm text-mist-600 dark:text-mist-300">No machines</p>
+          <p className="text-sm text-mist-600 dark:text-mist-300">沒有裝置</p>
         )}
       </td>
       <td className="py-2 pr-0.5">

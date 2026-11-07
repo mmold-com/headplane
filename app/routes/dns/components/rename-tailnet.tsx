@@ -13,7 +13,7 @@ interface Props {
 export default function RenameTailnet({ name, isDisabled }: Props) {
   return (
     <div className="flex w-full flex-col gap-y-4 sm:w-2/3">
-      <h1 className="mb-2 text-2xl font-medium">Tailnet Name</h1>
+      <h1 className="mb-2 text-2xl font-medium">Tailnet 名稱</h1>
       <p>
         This is the base domain name of your Tailnet. Devices are accessible at{" "}
         <Code>[device].{name}</Code> when Magic DNS is enabled.
@@ -21,7 +21,7 @@ export default function RenameTailnet({ name, isDisabled }: Props) {
       <Input
         className="w-3/5 text-sm font-medium"
         readOnly
-        label="Tailnet name"
+        label="Tailnet 名稱"
         labelHidden
         onFocus={(event) => {
           (event.target as HTMLInputElement).select();
@@ -29,9 +29,9 @@ export default function RenameTailnet({ name, isDisabled }: Props) {
         value={name}
       />
       <Dialog>
-        <Button disabled={isDisabled}>Rename Tailnet</Button>
+        <Button disabled={isDisabled}>重新命名 Tailnet</Button>
         <DialogPanel isDisabled={isDisabled}>
-          <Title>Rename Tailnet</Title>
+          <Title>重新命名 Tailnet</Title>
           <Text className="mb-8">
             Keep in mind that changing this can lead to all sorts of unexpected behavior and may
             break existing devices in your tailnet.
@@ -40,7 +40,7 @@ export default function RenameTailnet({ name, isDisabled }: Props) {
           <Input
             defaultValue={name}
             required
-            label="Tailnet name"
+            label="Tailnet 名稱"
             name="new_name"
             placeholder="ts.net"
           />

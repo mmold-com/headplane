@@ -12,7 +12,7 @@ export default function LinkAccount({ headscaleUsers }: LinkAccountProps) {
   return (
     <div className="mx-auto mt-6 flex max-w-xl flex-col items-center justify-center py-36">
       <Card variant="flat" className="max-w-xl items-center gap-4">
-        <Card.Title>Link your Headscale account</Card.Title>
+        <Card.Title>連結 Headscale 帳號</Card.Title>
         <Card.Text>
           Headplane could not automatically match your SSO identity to an existing Headscale user.
           Please select your user from the list below to link your account and continue.
@@ -27,7 +27,7 @@ export default function LinkAccount({ headscaleUsers }: LinkAccountProps) {
             name="headscale_user_id"
             required
           >
-            <option value="">Select a user...</option>
+            <option value="">選擇使用者…</option>
             {headscaleUsers.map((u) => (
               <option key={u.id} value={u.id}>
                 {u.name}

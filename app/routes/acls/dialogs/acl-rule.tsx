@@ -61,7 +61,7 @@ export default function AclRuleDialog({
         <TokenList
           description="Groups, tags, hosts, users or autogroups allowed to initiate the connection."
           emptyText="No sources yet"
-          label="Sources"
+          label="來源"
           onChange={(src) => setDraft({ ...draft, src })}
           placeholder="group:eng"
           suggestions={sources}
@@ -70,7 +70,7 @@ export default function AclRuleDialog({
         <TokenList
           description="Where the traffic is allowed to go. A destination without a port becomes :* (all ports)."
           emptyText="No destinations yet"
-          label="Destinations"
+          label="目的地"
           normalize={withDefaultPort}
           onChange={(dst) => setDraft({ ...draft, dst })}
           placeholder="tag:web:80,443"
@@ -79,7 +79,7 @@ export default function AclRuleDialog({
         />
         <Input
           description="Optional. Restricts the rule to a single protocol (tcp, udp, icmp, ...)."
-          label="Protocol"
+          label="通訊協定"
           onChange={(proto) => setDraft({ ...draft, proto: proto.length > 0 ? proto : undefined })}
           placeholder="tcp"
           value={draft.proto ?? ""}

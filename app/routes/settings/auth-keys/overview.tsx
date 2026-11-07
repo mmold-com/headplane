@@ -191,17 +191,17 @@ export default function Page({
     <div className="flex flex-col md:w-2/3">
       <p className="text-md mb-8">
         <Link className="font-medium" to="/settings">
-          Settings
+          設定
         </Link>
-        <span className="mx-2">/</span> Pre-Auth Keys
+        <span className="mx-2">/</span> 預先授權金鑰
       </p>
       {!access ? (
-        <Notice title="Pre-auth key permissions restricted" variant="warning">
+        <Notice title="預先授權金鑰權限受限" variant="warning">
           You do not have the necessary permissions to generate pre-auth keys. Please contact your
           administrator to request access or to generate a pre-auth key for you.
         </Notice>
       ) : missing.length > 0 ? (
-        <Notice title="Missing authentication keys" variant="error">
+        <Notice title="缺少驗證金鑰" variant="error">
           An error occurred while fetching the authentication keys for the following users:{" "}
           {missing.map(({ user }, index) => (
             <>
@@ -212,7 +212,7 @@ export default function Page({
           Their keys may not be listed correctly. Please check the server logs for more information.
         </Notice>
       ) : undefined}
-      <h1 className="mb-2 text-2xl font-medium">Pre-Auth Keys</h1>
+      <h1 className="mb-2 text-2xl font-medium">預先授權金鑰</h1>
       <p className="mb-4">
         Headscale fully supports pre-authentication keys in order to easily add devices to your
         Tailnet. To learn more about using pre-authentication keys, visit the{" "}
@@ -232,16 +232,16 @@ export default function Page({
           className="w-full"
           defaultValue="__headplane_all"
           disabled={isDisabled}
-          label="User"
+          label="使用者"
           onValueChange={(value) => setSelectedUser(value ?? "")}
-          placeholder="Select a user"
+          placeholder="選擇使用者"
           items={[
-            { value: "__headplane_all", label: "All" },
+            { value: "__headplane_all", label: "全部" },
             ...keys
               .filter((k): k is { user: User; preAuthKeys: PreAuthKey[] } => k.user !== null)
               .map(({ user }) => ({ value: user.id, label: getUserDisplayName(user) })),
             ...(keys.some(({ user }) => user === null)
-              ? [{ value: "__headplane_tag_only", label: "Tag Only" }]
+              ? [{ value: "__headplane_tag_only", label: "僅限標籤" }]
               : []),
           ]}
         />
@@ -249,15 +249,15 @@ export default function Page({
           className="w-full"
           defaultValue="active"
           disabled={isDisabled}
-          label="Status"
+          label="狀態"
           onValueChange={(value) => setStatus((value ?? "active") as Status)}
-          placeholder="Select a status"
+          placeholder="選擇狀態"
           items={[
-            { value: "all", label: "All" },
-            { value: "active", label: "Active" },
-            { value: "expired", label: "Used/Expired" },
-            { value: "reusable", label: "Reusable" },
-            { value: "ephemeral", label: "Ephemeral" },
+            { value: "all", label: "全部" },
+            { value: "active", label: "有效" },
+            { value: "expired", label: "已使用／已到期" },
+            { value: "reusable", label: "可重複使用" },
+            { value: "ephemeral", label: "暫時性" },
           ]}
         />
       </div>
@@ -265,12 +265,12 @@ export default function Page({
         {keys.flatMap(({ preAuthKeys }) => preAuthKeys).length === 0 ? (
           <TableList.Item className="flex flex-col items-center gap-2.5 py-4 opacity-70">
             <FileKey2 />
-            <p className="font-semibold">No pre-auth keys have been created yet.</p>
+            <p className="font-semibold">尚未建立預先授權金鑰。</p>
           </TableList.Item>
         ) : filteredKeys.length === 0 ? (
           <TableList.Item className="flex flex-col items-center gap-2.5 py-4 opacity-70">
             <FileKey2 />
-            <p className="font-semibold">No pre-auth keys match the selected filters.</p>
+            <p className="font-semibold">沒有符合篩選條件的預先授權金鑰。</p>
           </TableList.Item>
         ) : (
           filteredKeys.map((key) => {

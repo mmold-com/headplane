@@ -242,7 +242,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
     <>
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col">
-          <h1 className="mb-2 text-2xl font-medium">Machines</h1>
+          <h1 className="mb-2 text-2xl font-medium">裝置</h1>
           <p>
             Manage the devices connected to your Tailnet.{" "}
             <Link external styled to="https://tailscale.com/kb/1372/manage-devices">
@@ -260,16 +260,16 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="relative w-64">
           <Input
-            label="Search machines"
+            label="搜尋裝置"
             labelHidden
             maxLength={100}
             onChange={setSearchQuery}
-            placeholder="Search by name or IP address..."
+            placeholder="依名稱或 IP 位址搜尋…"
             value={searchQuery}
           />
           {searchQuery && (
             <button
-              aria-label="Clear search"
+              aria-label="清除搜尋"
               className={cn(
                 "absolute right-2 top-1/2 -translate-y-1/2",
                 "p-1 rounded-full",
@@ -306,7 +306,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                 className="pb-2 text-xs font-bold uppercase"
               >
                 <button
-                  aria-label="Sort by name"
+                  aria-label="依名稱排序"
                   className={cn(
                     "flex items-center gap-x-1 cursor-pointer",
                     "hover:text-mist-900 dark:hover:text-mist-100",
@@ -335,7 +335,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
               >
                 <div className="flex items-center gap-x-1">
                   <button
-                    aria-label="Sort by IP address"
+                    aria-label="依 IP 位址排序"
                     className={cn(
                       "flex items-center gap-x-1 cursor-pointer uppercase text-xs font-bold",
                       "hover:text-mist-900 dark:hover:text-mist-100",
@@ -382,7 +382,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                   className="pb-2 text-xs font-bold uppercase"
                 >
                   <button
-                    aria-label="Sort by version"
+                    aria-label="依版本排序"
                     className={cn(
                       "flex items-center gap-x-1 cursor-pointer",
                       "hover:text-mist-900 dark:hover:text-mist-100",
@@ -411,7 +411,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                 className="pb-2 text-xs font-bold uppercase"
               >
                 <button
-                  aria-label="Sort by last seen"
+                  aria-label="依上次連線時間排序"
                   className={cn(
                     "flex items-center gap-x-1 cursor-pointer",
                     "hover:text-mist-900 dark:hover:text-mist-100",
@@ -429,7 +429,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                 </button>
               </th>
               <th className="w-12 pb-2">
-                <span className="sr-only">Actions</span>
+                <span className="sr-only">操作</span>
               </th>
             </tr>
           </thead>

@@ -58,7 +58,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
     return (
       <div className="flex max-w-(--breakpoint-lg) flex-col gap-8">
         <Title>Headplane Agent</Title>
-        <Notice title="Agent Not Enabled">
+        <Notice title="Agent 尚未啟用">
           {loaderData.reason}. To learn how to set up the agent, visit the{" "}
           <Link external styled to="https://headplane.net/features/agent">
             documentation
@@ -90,7 +90,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 
       <div className="flex flex-col gap-2">
         <Text>
-          <span className="font-medium">Last synced: </span>
+          <span className="font-medium">上次同步： </span>
           {loaderData.syncedAt ? (
             <span suppressHydrationWarning>{formatTimeDelta(new Date(loaderData.syncedAt))}</span>
           ) : (
@@ -98,13 +98,13 @@ export default function Page({ loaderData }: Route.ComponentProps) {
           )}
         </Text>
         <Text>
-          <span className="font-medium">Nodes synced: </span>
+          <span className="font-medium">已同步節點： </span>
           {loaderData.nodeCount}
         </Text>
       </div>
 
       {isPending ? (
-        <Notice variant="warning" title="Agent Needs Approval">
+        <Notice variant="warning" title="Agent 等待核准">
           The agent is waiting for its Tailnet registration to be approved. Headplane will attempt
           to auto-approve it, but if that fails, you can complete approval by visiting{" "}
           <Link external styled to={loaderData.authUrl!}>
@@ -115,7 +115,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       ) : undefined}
 
       {loaderData.error ? (
-        <Notice variant="error" title="Sync Error">
+        <Notice variant="error" title="同步失敗">
           {loaderData.error}
         </Notice>
       ) : undefined}

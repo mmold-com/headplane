@@ -120,7 +120,7 @@ export default function UserMenu({
             {isLinked ? "Change linked user" : "Link Headscale user"}
           </MenuItem>
           {canEditGroups && user.linkedHeadscaleUser && (
-            <MenuItem onClick={() => setModal("groups")}>Edit groups</MenuItem>
+            <MenuItem onClick={() => setModal("groups")}>編輯群組</MenuItem>
           )}
           {isOwner && !isSelf && (
             <>
@@ -134,7 +134,7 @@ export default function UserMenu({
             <>
               <MenuSeparator />
               <MenuItem variant="danger" onClick={() => setModal("delete")}>
-                Delete
+                刪除
               </MenuItem>
             </>
           )}

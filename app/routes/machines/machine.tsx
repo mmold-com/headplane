@@ -169,7 +169,7 @@ export default function Page({
           </div>
         </div>
         <div className="p-2 pl-4">
-          <p className="text-sm text-mist-600 dark:text-mist-300">Status</p>
+          <p className="text-sm text-mist-600 dark:text-mist-300">狀態</p>
           <div className="mt-1 mb-8 flex gap-1">
             {mapTagsToComponents(node, uiTags)}
             {tags.map((tag) => (
@@ -179,15 +179,15 @@ export default function Page({
         </div>
       </div>
       <Routes isOpen={showRouting} node={node} setIsOpen={setShowRouting} />
-      <h2 className="mt-8 text-xl font-medium">Subnets & Routing</h2>
+      <h2 className="mt-8 text-xl font-medium">子網路與路由</h2>
       <div className="mb-4 flex items-center justify-between">
         <p>
           Subnets let you expose physical network routes onto Tailscale.{" "}
           <Link external styled to="https://tailscale.com/kb/1019/subnets">
-            Learn More
+            了解更多
           </Link>
         </p>
-        <Button onClick={() => setShowRouting(true)}>Review</Button>
+        <Button onClick={() => setShowRouting(true)}>檢視</Button>
       </div>
       <Card
         className={cn(
@@ -219,7 +219,7 @@ export default function Page({
             onClick={() => setShowRouting(true)}
             variant="ghost"
           >
-            Edit
+            編輯
           </Button>
         </div>
         <div>
@@ -245,7 +245,7 @@ export default function Page({
             onClick={() => setShowRouting(true)}
             variant="ghost"
           >
-            Edit
+            編輯
           </Button>
         </div>
         <div>
@@ -275,11 +275,11 @@ export default function Page({
             onClick={() => setShowRouting(true)}
             variant="ghost"
           >
-            Edit
+            編輯
           </Button>
         </div>
       </Card>
-      <h2 className="text-xl font-medium">Machine Details</h2>
+      <h2 className="text-xl font-medium">裝置詳細資料</h2>
       <p className="mb-4">
         Information about this machine’s network. Used to debug connection issues.
       </p>

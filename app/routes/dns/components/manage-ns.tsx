@@ -19,7 +19,7 @@ interface Props {
 export default function ManageNS({ nameservers, isDisabled, overrideLocalDns }: Props) {
   return (
     <div className="flex w-full flex-col sm:w-2/3">
-      <h1 className="mb-4 text-2xl font-medium">Nameservers</h1>
+      <h1 className="mb-4 text-2xl font-medium">名稱伺服器</h1>
       <p>
         Set the nameservers used by devices on the Tailnet to resolve DNS queries.{" "}
         <Link external styled to="https://tailscale.com/kb/1054/dns">
@@ -65,7 +65,7 @@ function NameserverList({ isGlobal, isDisabled, nameservers, overrideLocalDns, n
       <div className="mb-2 flex items-center justify-between">
         {isGlobal ? (
           <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="text-md font-medium opacity-80">Global Nameservers</h2>
+            <h2 className="text-md font-medium opacity-80">全域名稱伺服器</h2>
             <div className="flex items-center gap-2 text-sm">
               <Tooltip
                 content={
@@ -74,18 +74,18 @@ function NameserverList({ isGlobal, isDisabled, nameservers, overrideLocalDns, n
                     tailnet. When disabled (default), devices will prefer their local DNS
                     configuration.{" "}
                     <Link external styled to="https://tailscale.com/kb/1054/dns#global-nameservers">
-                      Learn More
+                      了解更多
                     </Link>
                   </>
                 }
               >
                 <Info className="size-4" />
               </Tooltip>
-              <p>Override DNS servers</p>
+              <p>覆寫 DNS 伺服器</p>
               <Switch
                 className="h-[15px] w-[23px] p-0.5"
                 defaultChecked={overrideLocalDns}
-                label="Override local DNS settings"
+                label="覆寫本機 DNS 設定"
                 name="override_dns"
                 onCheckedChange={(v) => {
                   submit(

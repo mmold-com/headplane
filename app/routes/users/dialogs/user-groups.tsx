@@ -95,7 +95,7 @@ export default function UserGroups({
         <TokenList
           emptyText="This user is not in any group"
           isDisabled={isSubmitting}
-          label="Groups"
+          label="群組"
           onChange={setSelected}
           placeholder="group:example"
           suggestions={availableGroups}

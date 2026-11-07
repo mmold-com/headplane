@@ -66,14 +66,14 @@ export default function SshRuleDialog({
               ? []
               : [{ value: draft.action, label: `${draft.action} — not known to Headplane` }]),
           ]}
-          label="Action"
+          label="操作"
           onValueChange={(value) => setDraft({ ...draft, action: value ?? draft.action })}
           value={draft.action}
         />
         <TokenList
           description="Who is allowed to open the SSH session."
           emptyText="No sources yet"
-          label="Sources"
+          label="來源"
           onChange={(src) => setDraft({ ...draft, src })}
           placeholder="group:ops"
           suggestions={sources}
@@ -82,7 +82,7 @@ export default function SshRuleDialog({
         <TokenList
           description="The nodes that accept the SSH session."
           emptyText="No destinations yet"
-          label="Destinations"
+          label="目的地"
           onChange={(dst) => setDraft({ ...draft, dst })}
           placeholder="tag:server"
           suggestions={destinations}
@@ -91,7 +91,7 @@ export default function SshRuleDialog({
         <TokenList
           description="The local Unix users that may be logged into."
           emptyText="No SSH users yet"
-          label="SSH users"
+          label="SSH 使用者"
           onChange={(users) => setDraft({ ...draft, users })}
           placeholder="autogroup:nonroot"
           suggestions={SSH_USERS}

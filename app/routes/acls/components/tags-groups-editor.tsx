@@ -96,7 +96,7 @@ export default function TagsGroupsEditor({
         }
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "group", name: null })}
-        title="Groups"
+        title="群組"
       >
         {groups.length === 0 ? (
           <Empty text="No groups are defined yet." />
@@ -110,7 +110,7 @@ export default function TagsGroupsEditor({
                 <span className="font-mono text-sm">{name}</span>
                 <span className="flex flex-wrap items-center gap-1">
                   {members.length === 0 ? (
-                    <span className="text-xs opacity-60">No members</span>
+                    <span className="text-xs opacity-60">沒有成員</span>
                   ) : (
                     members.map((member) => (
                       <Chip className="font-mono" key={member} text={member} />
@@ -141,7 +141,7 @@ export default function TagsGroupsEditor({
         }
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "tag", name: null })}
-        title="Tags"
+        title="標籤"
       >
         {tags.length === 0 ? (
           <Empty text="No tags are defined yet." />
@@ -164,7 +164,7 @@ export default function TagsGroupsEditor({
                   </div>
                   <span className="flex flex-wrap items-center gap-1">
                     {owners.length === 0 ? (
-                      <span className="text-xs opacity-60">No owners</span>
+                      <span className="text-xs opacity-60">沒有擁有者</span>
                     ) : (
                       owners.map((owner) => <Chip className="font-mono" key={owner} text={owner} />)
                     )}

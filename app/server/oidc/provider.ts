@@ -46,6 +46,7 @@ export interface OidcFlowState {
 }
 
 export interface OidcIdentity {
+  emailVerified?: boolean;
   issuer: string;
   subject: string;
   name: string;
@@ -796,6 +797,7 @@ export function createOidcService(initialConfig: OidcConfig): OidcService {
       name,
       username,
       email: claims.email,
+      emailVerified: claims.email_verified === true,
       picture,
       role: config.roleClaim ? resolveRoleClaim(claims, config.roleClaim) : undefined,
       idToken,

@@ -14,7 +14,7 @@ export function SubnetTag({ isEnabled }: SubnetTagProps) {
     <Tooltip
       content={
         isEnabled ? (
-          <>This machine advertises subnet routes.</>
+          <>此裝置會通告子網路路由。</>
         ) : (
           <>
             This machine has unadvertised subnet routes. Review this from the "Edit route
