@@ -330,7 +330,7 @@ export default function Page({
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-sm font-semibold text-mist-600 uppercase dark:text-mist-300">
-            Addresses
+            IP 位址
           </p>
           <Attribute
             isCopyable

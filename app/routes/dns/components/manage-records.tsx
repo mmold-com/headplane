@@ -58,7 +58,7 @@ export default function ManageRecords({ records, isDisabled }: Props) {
                     disabled={isDisabled}
                     type="submit"
                   >
-                    Remove
+                    移除
                   </Button>
                 </Form>
               </TableList.Item>

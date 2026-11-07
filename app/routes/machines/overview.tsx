@@ -246,7 +246,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
           <p>
             Manage the devices connected to your Tailnet.{" "}
             <Link external styled to="https://tailscale.com/kb/1372/manage-devices">
-              Learn more
+              了解更多
             </Link>
           </p>
         </div>
@@ -287,8 +287,8 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         <MachineFilters users={loaderData.users} populatedNodes={loaderData.populatedNodes} />
         <span className="ml-auto text-sm whitespace-nowrap text-mist-500">
           {searchQuery || hasActiveFilters
-            ? `Showing ${filteredAndSortedNodes.length} of ${loaderData.populatedNodes.length} machines`
-            : `${loaderData.populatedNodes.length} machines`}
+            ? `顯示 ${filteredAndSortedNodes.length} 台，共 ${loaderData.populatedNodes.length} 台裝置`
+            : `${loaderData.populatedNodes.length} 台裝置`}
         </span>
       </div>
       <div className="overflow-x-auto">
@@ -343,7 +343,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                     onClick={() => handleSort("ip")}
                     type="button"
                   >
-                    Addresses
+                    IP 位址
                     {sortField === "ip" &&
                       (sortDirection === "asc" ? (
                         <ChevronUp className="h-3 w-3" />
@@ -390,7 +390,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                     onClick={() => handleSort("version")}
                     type="button"
                   >
-                    Version
+                    版本
                     {sortField === "version" &&
                       (sortDirection === "asc" ? (
                         <ChevronUp className="h-3 w-3" />
@@ -419,7 +419,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                   onClick={() => handleSort("lastSeen")}
                   type="button"
                 >
-                  Last Seen
+                  上次連線
                   {sortField === "lastSeen" &&
                     (sortDirection === "asc" ? (
                       <ChevronUp className="h-3 w-3" />
@@ -445,7 +445,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                   className="py-8 text-center text-mist-500"
                   colSpan={loaderData.agent !== undefined ? 6 : 5}
                 >
-                  No machines match the current filters
+                  沒有符合目前篩選條件的裝置
                 </td>
               </tr>
             ) : (

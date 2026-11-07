@@ -191,7 +191,7 @@ export default function MachineMenu({
             </MenuItem>
           )}
           <MenuItem variant="danger" onClick={() => setModal("remove")}>
-            Remove
+            移除
           </MenuItem>
         </MenuContent>
       </Menu>

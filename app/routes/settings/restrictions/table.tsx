@@ -17,7 +17,7 @@ export default function RestrictionTable({ children, type, values, isDisabled }:
   return (
     <div className="w-full sm:w-2/3">
       <h2 className="mt-8 text-2xl font-medium">
-        Permitted {type.charAt(0).toUpperCase() + type.slice(1)}s
+        {{ domain: "允許的網域", group: "允許的群組", user: "核准的帳號" }[type]}
       </h2>
       <TableList className="my-4">
         {values.length > 0 ? (
@@ -40,7 +40,7 @@ export default function RestrictionTable({ children, type, values, isDisabled }:
                   disabled={isDisabled}
                   type="submit"
                 >
-                  Remove
+                  移除
                 </Button>
               </Form>
             </TableList.Item>
@@ -48,7 +48,10 @@ export default function RestrictionTable({ children, type, values, isDisabled }:
         ) : (
           <TableList.Item className="flex flex-col items-center gap-2.5 py-4 opacity-70">
             {iconForType(type)}
-            <p className="text-center font-semibold">All {type}s are permitted to authenticate.</p>
+            <p className="text-center font-semibold">
+              未設定額外的{{ domain: "網域", group: "群組", user: "帳號" }[type]}
+              限制；仍須符合其他登入限制。
+            </p>
           </TableList.Item>
         )}
       </TableList>

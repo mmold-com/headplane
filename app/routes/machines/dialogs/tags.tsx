@@ -84,7 +84,7 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
         <Text>
           ACL tags can be used to reference machines in your ACL policies. See the{" "}
           <Link external styled to="https://tailscale.com/kb/1068/acl-tags">
-            Tailscale documentation
+            Tailscale 使用說明
           </Link>{" "}
           for more information.
         </Text>

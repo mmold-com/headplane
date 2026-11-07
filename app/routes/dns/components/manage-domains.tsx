@@ -173,7 +173,7 @@ function Domain({ domain, id, isDragging, isDisabled }: DomainProps) {
             disabled={isDisabled}
             type="submit"
           >
-            Remove
+            移除
           </Button>
         </Form>
       )}

@@ -35,7 +35,7 @@ export function OidcConfigErrorNotice({ errors }: { errors: OidcErrorCode[] }) {
           ))}
         </ul>{" "}
         <Link external styled to="https://headplane.net/features/sso#troubleshooting">
-          Learn more
+          了解更多
         </Link>
       </Card.Text>
     </Card>

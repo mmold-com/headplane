@@ -205,7 +205,7 @@ export default function AddAuthKey({
                 Devices authenticated with this key will be automatically removed once they go
                 offline.{" "}
                 <Link external styled to="https://tailscale.com/kb/1111/ephemeral-nodes">
-                  Learn more
+                  了解更多
                 </Link>
               </Text>
             </div>

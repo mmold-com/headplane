@@ -24,7 +24,7 @@ export default function AddUser({ users, isDisabled }: AddUserProps) {
       if (user.length === 0) return undefined;
 
       if (users.includes(user)) {
-        return { user: "This user already exists in the list." };
+        return { user: "此帳號已在白名單中。" };
       }
 
       return undefined;
@@ -37,15 +37,15 @@ export default function AddUser({ users, isDisabled }: AddUserProps) {
       <DialogPanel>
         <Title>新增核准帳號</Title>
         <Text className="mb-4">
-          Add this user to a list of allowed users that can authenticate with Headscale via OIDC.
+          新增經管理者核准的 Google 電子郵件帳號，允許該帳號登入並註冊 VPN 裝置。
         </Text>
         <input name="action_id" type="hidden" value="add_user" />
         <Input
           {...form.field("user")}
-          description="The user to allow for OIDC authentication."
+          description="輸入核准使用的完整 Google 電子郵件地址。"
           required
-          label="使用者"
-          placeholder="john_doe"
+          label="核准的 Google 電子郵件"
+          placeholder="name@gmail.com"
         />
       </DialogPanel>
     </Dialog>

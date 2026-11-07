@@ -35,7 +35,7 @@ export default function LinkAccount({ headscaleUsers }: LinkAccountProps) {
             ))}
           </select>
           <Button className="w-full" type="submit" variant="heavy">
-            Link and Continue
+            連結並繼續
           </Button>
         </Form>
         <Card.Text className="mt-8 text-center text-xs text-mist-600 dark:text-mist-300">

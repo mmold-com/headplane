@@ -75,10 +75,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
     <div className="flex max-w-(--breakpoint-lg) flex-col gap-8">
       <div className="flex w-full flex-col sm:w-2/3">
         <Title>Headplane Agent</Title>
-        <Text>
-          The Headplane Agent syncs node information like OS version and connectivity details from
-          your Tailnet.
-        </Text>
+        <Text>Headplane Agent 可同步裝置的作業系統版本與連線詳細資料。</Text>
       </div>
 
       <div className="flex items-center gap-3">

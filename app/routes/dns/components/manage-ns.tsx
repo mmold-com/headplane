@@ -23,7 +23,7 @@ export default function ManageNS({ nameservers, isDisabled, overrideLocalDns }: 
       <p>
         Set the nameservers used by devices on the Tailnet to resolve DNS queries.{" "}
         <Link external styled to="https://tailscale.com/kb/1054/dns">
-          Learn more
+          了解更多
         </Link>
       </p>
       <div className="mt-4">
@@ -120,7 +120,7 @@ function NameserverList({ isGlobal, isDisabled, nameservers, overrideLocalDns, n
                     disabled={isDisabled}
                     type="submit"
                   >
-                    Remove
+                    移除
                   </Button>
                 </Form>
               </TableList.Item>

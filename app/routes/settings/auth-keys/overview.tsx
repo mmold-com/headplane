@@ -214,10 +214,10 @@ export default function Page({
       ) : undefined}
       <h1 className="mb-2 text-2xl font-medium">預先授權金鑰</h1>
       <p className="mb-4">
-        Headscale fully supports pre-authentication keys in order to easily add devices to your
-        Tailnet. To learn more about using pre-authentication keys, visit the{" "}
+        管理裝置註冊使用的預先授權金鑰。一般使用者應使用 Google
+        登入並經管理者核准；金鑰整合方式請參閱{" "}
         <Link external styled to="https://tailscale.com/kb/1085/auth-keys/">
-          Tailscale documentation
+          Tailscale 使用說明
         </Link>
       </p>
       <AddAuthKey

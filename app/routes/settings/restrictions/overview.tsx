@@ -70,10 +70,8 @@ export default function Page({ loaderData: { access, writable, settings } }: Rou
         ) : undefined}
         <h1 className="mt-4 mb-2 text-2xl font-medium">登入核准白名單</h1>
         <p>
-          Headscale supports restricting OIDC authentication to only allow certain email domains,
-          groups, or users to authenticate. This can be used to limit access to your Tailnet to only
-          certain users or groups and Headplane will also respect these settings when
-          authenticating.{" "}
+          依核准的電子郵件帳號限制 VPN 註冊。此部署由管理者逐一核准帳號；管理介面僅限指定的 Google
+          管理者登入。{" "}
           <Link external styled to="https://headscale.net/stable/ref/oidc/#basic-configuration">
             了解更多
           </Link>

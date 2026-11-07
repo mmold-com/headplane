@@ -56,7 +56,7 @@ export default function UserPrompt({ hostname }: UserPromptProps) {
             required
           />
           <Button type="submit" variant="heavy" className="w-full">
-            Connect
+            連線
           </Button>
         </Form>
       </Card>
