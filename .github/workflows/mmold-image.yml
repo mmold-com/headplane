@@ -44,6 +44,9 @@ jobs:
         with:
           context: .
           file: Dockerfile
+          build-args: |
+            IMAGE_TAG=${{ github.sha }}
+            HEADPLANE_VERSION=0.8.2-mmold
           platforms: linux/amd64
           push: true
           tags: ghcr.io/mmold-com/headplane:${{ github.sha }}
