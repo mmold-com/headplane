@@ -23,24 +23,24 @@ interface NamedListDialogProps {
 
 const COPY = {
   group: {
-    title: "group",
+    title: "群組",
     prefix: "group:",
-    field: "Members",
-    fieldDescription: "Headscale users that belong to this group.",
-    empty: "No members yet",
+    field: "成員",
+    fieldDescription: "此群組包含的 Headscale 使用者。",
+    empty: "尚無成員",
     placeholder: "alice@",
     validate: isValidGroupName,
-    hint: "Group names must start with group: and may only contain lowercase letters, numbers and dashes.",
+    hint: "群組名稱必須以 group: 開頭，且只能包含小寫英文字母、數字與連字號。",
   },
   tag: {
-    title: "tag",
+    title: "標籤",
     prefix: "tag:",
-    field: "Tag owners",
-    fieldDescription: "Users and groups allowed to assign this tag to a node.",
-    empty: "No owners yet",
+    field: "標籤擁有者",
+    fieldDescription: "可將此標籤指派給節點的使用者與群組。",
+    empty: "尚無擁有者",
     placeholder: "group:ops",
     validate: isValidTagName,
-    hint: "Tag names must start with tag: and may only contain lowercase letters, numbers and dashes.",
+    hint: "標籤名稱必須以 tag: 開頭，且只能包含小寫英文字母、數字與連字號。",
   },
 } as const;
 
@@ -83,10 +83,10 @@ export default function NamedListDialog({
           setIsOpen(false);
         }}
       >
-        <Title>{name ? `Edit ${copy.title} ${name}` : `New ${copy.title}`}</Title>
+        <Title>{name ? `編輯${copy.title} ${name}` : `新增${copy.title}`}</Title>
         <Text>{copy.hint}</Text>
         <Input
-          errorMessage={isDuplicate ? `A ${copy.title} with this name already exists.` : copy.hint}
+          errorMessage={isDuplicate ? `A ${copy.title} with this name 的紀錄已存在。` : copy.hint}
           invalid={showNameError}
           label="名稱"
           onChange={setDraftName}

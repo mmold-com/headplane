@@ -24,10 +24,9 @@ export default function LinkUser({
   return (
     <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
       <DialogPanel>
-        <Title>Link Headscale user for {displayName}</Title>
+        <Title>為 {displayName} 連結 Headscale 使用者</Title>
         <Text className="mb-6">
-          Select which Headscale user this identity should be linked to. This controls which
-          machines they can manage and enables self-service features.
+          選擇此身分要連結的 Headscale 使用者。此設定決定可管理的裝置，並啟用自助操作功能。
         </Text>
         {headscaleUsers.length === 0 ? (
           <Notice>所有 Headscale 使用者均已連結至其他帳號。</Notice>
@@ -49,7 +48,7 @@ export default function LinkUser({
               {headscaleUsers.map((u) => (
                 <option key={u.id} value={u.id}>
                   {u.name}
-                  {u.id === currentLink ? " (current)" : ""}
+                  {u.id === currentLink ? "（目前）" : ""}
                 </option>
               ))}
             </select>

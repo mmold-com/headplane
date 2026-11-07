@@ -24,7 +24,7 @@ export function Section({ title, description, isDisabled, onAdd, children }: Sec
         </div>
         <Button className="shrink-0" disabled={isDisabled} onClick={onAdd} type="button">
           <Plus className="h-4 w-4" />
-          Add
+          新增
         </Button>
       </div>
       <TableList>{children}</TableList>

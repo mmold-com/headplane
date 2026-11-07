@@ -35,8 +35,7 @@ export default function NewMachine(data: NewMachineProps) {
       normalizeRegistrationKey(String(values.register_key ?? ""))
         ? undefined
         : {
-            register_key:
-              "Paste the registration URL or full hskey-authreq-... key from tailscale up.",
+            register_key: "貼上 tailscale up 顯示的註冊網址或完整 hskey-authreq-... 金鑰。",
           },
   });
   const navigate = useNavigate();
@@ -54,7 +53,7 @@ export default function NewMachine(data: NewMachineProps) {
             required
             label="裝置金鑰"
             placeholder="hskey-authreq-XXXXXXXXXXXXXXXXXXXXXXXX"
-            description="Paste the registration URL or full key shown by tailscale up."
+            description="貼上 tailscale up 顯示的註冊網址或完整金鑰。"
           />
           <Select
             required
@@ -91,7 +90,7 @@ export default function NewMachine(data: NewMachineProps) {
           >
             <div className="flex items-center gap-x-3">
               <FileKey2 className="w-4" />
-              Generate Pre-auth Key
+              產生預先授權金鑰
             </div>
           </MenuItem>
         </MenuContent>

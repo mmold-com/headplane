@@ -48,19 +48,19 @@ export default function AclRuleDialog({
           setIsOpen(false);
         }}
       >
-        <Title>{rule ? "Edit access rule" : "New access rule"}</Title>
+        <Title>{rule ? "編輯存取規則" : "新增存取規則"}</Title>
         <Text>
-          Access rules allow traffic from a set of sources to a set of destinations. Destinations
-          must include a port, for example <code className="font-mono">tag:web:80,443</code>. If you
-          leave the port out, <code className="font-mono">:*</code> is added for you. See the{" "}
+          存取規則允許流量從指定來源前往指定目的地。目的地必須包含連接埠，例如{" "}
+          <code className="font-mono">tag:web:80,443</code>。若未指定連接埠，系統會自動補上{" "}
+          <code className="font-mono">:*</code> 。完整語法請參閱{" "}
           <Link external styled to="https://tailscale.com/kb/1018/acls">
-            Tailscale ACL guide
+            Tailscale ACL 指南
           </Link>{" "}
-          for the full syntax.
+          。
         </Text>
         <TokenList
-          description="Groups, tags, hosts, users or autogroups allowed to initiate the connection."
-          emptyText="No sources yet"
+          description="允許發起連線的群組、標籤、主機、使用者或自動群組。"
+          emptyText="尚無來源"
           label="來源"
           onChange={(src) => setDraft({ ...draft, src })}
           placeholder="group:eng"
@@ -68,8 +68,8 @@ export default function AclRuleDialog({
           values={draft.src}
         />
         <TokenList
-          description="Where the traffic is allowed to go. A destination without a port becomes :* (all ports)."
-          emptyText="No destinations yet"
+          description="允許流量前往的目的地。未指定連接埠時，會補上 :*（所有連接埠）。"
+          emptyText="尚無目的地"
           label="目的地"
           normalize={withDefaultPort}
           onChange={(dst) => setDraft({ ...draft, dst })}
@@ -78,7 +78,7 @@ export default function AclRuleDialog({
           values={draft.dst}
         />
         <Input
-          description="Optional. Restricts the rule to a single protocol (tcp, udp, icmp, ...)."
+          description="選填。將規則限制為單一通訊協定，例如 tcp、udp 或 icmp。"
           label="通訊協定"
           onChange={(proto) => setDraft({ ...draft, proto: proto.length > 0 ? proto : undefined })}
           placeholder="tcp"

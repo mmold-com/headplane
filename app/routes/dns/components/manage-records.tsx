@@ -18,8 +18,8 @@ export default function ManageRecords({ records, isDisabled }: Props) {
     <div className="flex w-full flex-col sm:w-2/3">
       <h1 className="mb-4 text-2xl font-medium">DNS 紀錄</h1>
       <p>
-        Headscale supports adding custom DNS records to your Tailnet. As of now, only <Code>A</Code>{" "}
-        and <Code>AAAA</Code> records are supported.{" "}
+        Headscale 支援在 Tailnet 加入自訂 DNS 紀錄，目前僅支援 <Code>A</Code> 與 <Code>AAAA</Code>{" "}
+        紀錄。{" "}
         <Link external styled to="https://headscale.net/stable/ref/dns">
           了解更多
         </Link>

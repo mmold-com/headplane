@@ -25,10 +25,9 @@ export default function ReassignUser({
   return (
     <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
       <DialogPanel variant={role === "owner" ? "unactionable" : "normal"}>
-        <Title>Change role for {displayName}?</Title>
+        <Title>變更 {displayName} 的角色？</Title>
         <Text className="mb-6">
-          Roles control what the user can access in Headplane. Each role grants a specific set of
-          capabilities.{" "}
+          角色決定使用者在 Headplane 中的存取範圍，每個角色有不同的操作權限。{" "}
           <Link external styled to="https://tailscale.com/kb/1138/user-roles">
             了解更多
           </Link>
@@ -65,38 +64,38 @@ function mapRoleToName(role: string) {
   switch (role) {
     case "admin":
       return {
-        name: "Admin",
-        desc: "Can view the admin console, manage network, machine, and user settings.",
+        name: "管理員",
+        desc: "可檢視管理介面，並管理網路、裝置與使用者設定。",
       };
     case "network_admin":
       return {
-        name: "Network Admin",
-        desc: "Can view the admin console and manage ACLs and network settings. Cannot manage machines or users.",
+        name: "網路管理員",
+        desc: "可檢視管理介面並管理 ACL 與網路設定，無法管理裝置或使用者。",
       };
     case "it_admin":
       return {
-        name: "IT Admin",
-        desc: "Can view the admin console and manage machines and users. Cannot manage ACLs or network settings.",
+        name: "資訊管理員",
+        desc: "可檢視管理介面並管理裝置與使用者，無法管理 ACL 或網路設定。",
       };
     case "auditor":
       return {
-        name: "Auditor",
-        desc: "Can view the admin console.",
+        name: "稽核員",
+        desc: "可檢視管理介面。",
       };
     case "viewer":
       return {
-        name: "Viewer",
-        desc: "Can view machines, users, and generate their own auth keys.",
+        name: "檢視者",
+        desc: "可檢視裝置、使用者，並產生自己的驗證金鑰。",
       };
     case "member":
       return {
-        name: "Member",
-        desc: "Cannot view the admin console.",
+        name: "成員",
+        desc: "無法檢視管理介面。",
       };
     default:
       return {
         name: role,
-        desc: "No description available.",
+        desc: "尚無說明。",
       };
   }
 }

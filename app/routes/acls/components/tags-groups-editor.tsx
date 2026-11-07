@@ -90,8 +90,8 @@ export default function TagsGroupsEditor({
       <Section
         description={
           <>
-            Groups bundle users together so rules can refer to a team instead of individual
-            accounts. Membership is stored in the policy, not in Headscale.
+            群組可將使用者組成團隊，讓規則直接引用整個團隊。成員關係儲存於原則中，而非 Headscale
+            使用者資料。
           </>
         }
         isDisabled={isDisabled}
@@ -99,7 +99,7 @@ export default function TagsGroupsEditor({
         title="群組"
       >
         {groups.length === 0 ? (
-          <Empty text="No groups are defined yet." />
+          <Empty text="尚未定義群組。" />
         ) : (
           groups.map(([name, members]) => (
             <TableList.Item
@@ -131,10 +131,9 @@ export default function TagsGroupsEditor({
       <Section
         description={
           <>
-            Tags identify machines by role instead of by owner. A tag must be declared here before
-            it can be assigned to a node — see the{" "}
+            標籤依用途識別裝置，取代以擁有者識別的方式。標籤必須先在此宣告，才能指派給節點，詳見{" "}
             <Link external styled to="https://tailscale.com/kb/1068/acl-tags">
-              Tailscale tag documentation
+              Tailscale 標籤文件
             </Link>
             .
           </>
@@ -144,7 +143,7 @@ export default function TagsGroupsEditor({
         title="標籤"
       >
         {tags.length === 0 ? (
-          <Empty text="No tags are defined yet." />
+          <Empty text="尚未定義標籤。" />
         ) : (
           tags.map(([name, owners]) => {
             const usedBy = tagUsage.find((usage) => usage.tag === name)?.nodes ?? [];
@@ -158,8 +157,8 @@ export default function TagsGroupsEditor({
                     <span className="font-mono text-sm">{name}</span>
                     <span className="text-xs opacity-60">
                       {usedBy.length === 0
-                        ? "Not assigned to any machine"
-                        : `${usedBy.length} machine${usedBy.length === 1 ? "" : "s"}: ${usedBy.join(", ")}`}
+                        ? "尚未指派給任何裝置"
+                        : `${usedBy.length} 台裝置：${usedBy.join("、")}`}
                     </span>
                   </div>
                   <span className="flex flex-wrap items-center gap-1">

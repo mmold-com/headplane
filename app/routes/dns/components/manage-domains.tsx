@@ -34,8 +34,7 @@ export default function ManageDomains({ searchDomains, isDisabled, magic }: Prop
     <div className="flex w-full flex-col sm:w-2/3">
       <h1 className="mb-4 text-2xl font-medium">搜尋網域</h1>
       <p className="mb-4">
-        Set custom DNS search domains for your Tailnet. When using Magic DNS, your tailnet domain is
-        used as the first search domain.
+        設定 Tailnet 的自訂 DNS 搜尋網域。使用 Magic DNS 時，Tailnet 網域會優先作為第一個搜尋網域。
       </p>
       <DndContext
         collisionDetection={closestCorners}
@@ -114,7 +113,7 @@ export default function ManageDomains({ searchDomains, isDisabled, magic }: Prop
                   className={cn("px-2 py-1 rounded-md", "text-blue-500 dark:text-blue-400")}
                   type="submit"
                 >
-                  Add
+                  新增
                 </Button>
               </Form>
             </TableList.Item>

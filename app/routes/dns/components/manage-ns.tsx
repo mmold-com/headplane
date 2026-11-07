@@ -21,7 +21,7 @@ export default function ManageNS({ nameservers, isDisabled, overrideLocalDns }: 
     <div className="flex w-full flex-col sm:w-2/3">
       <h1 className="mb-4 text-2xl font-medium">名稱伺服器</h1>
       <p>
-        Set the nameservers used by devices on the Tailnet to resolve DNS queries.{" "}
+        設定 Tailnet 裝置解析 DNS 查詢時使用的名稱伺服器。{" "}
         <Link external styled to="https://tailscale.com/kb/1054/dns">
           了解更多
         </Link>
@@ -70,9 +70,8 @@ function NameserverList({ isGlobal, isDisabled, nameservers, overrideLocalDns, n
               <Tooltip
                 content={
                   <>
-                    When enabled, use the DNS servers listed below to resolve names outside the
-                    tailnet. When disabled (default), devices will prefer their local DNS
-                    configuration.{" "}
+                    啟用時，使用下列 DNS 伺服器解析 Tailnet
+                    以外的網域；停用時（預設），裝置優先使用本機 DNS 設定。{" "}
                     <Link external styled to="https://tailscale.com/kb/1054/dns#global-nameservers">
                       了解更多
                     </Link>

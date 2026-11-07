@@ -13,14 +13,13 @@ interface CreateUserProps {
 export default function CreateUser({ isOidc, isDisabled }: CreateUserProps) {
   return (
     <Dialog>
-      <Button disabled={isDisabled}>新增核准帳號</Button>
+      <Button disabled={isDisabled}>建立使用者</Button>
       <DialogPanel>
         <Title>建立 Headscale 使用者</Title>
         <Text className="mb-6">
-          This creates a new user in Headscale. The user will appear in the &ldquo;Unlinked
-          Headscale Users&rdquo; section until they sign in
-          {isOidc ? " through your OIDC provider" : ""} and are automatically linked to a Headplane
-          account.
+          此操作會在 Headscale 建立新使用者。使用者會先顯示於「尚未連結的 Headscale
+          使用者」區段，待登入後
+          {isOidc ? "透過 OIDC 身分提供者驗證" : ""} 自動連結至 Headplane 帳號。
         </Text>
         <input name="action_id" type="hidden" value="create_user" />
         <div className="flex flex-col gap-4">

@@ -15,8 +15,8 @@ export default function RenameTailnet({ name, isDisabled }: Props) {
     <div className="flex w-full flex-col gap-y-4 sm:w-2/3">
       <h1 className="mb-2 text-2xl font-medium">Tailnet 名稱</h1>
       <p>
-        This is the base domain name of your Tailnet. Devices are accessible at{" "}
-        <Code>[device].{name}</Code> when Magic DNS is enabled.
+        這是 Tailnet 的基礎網域名稱。啟用 Magic DNS 後，可透過下列網址存取裝置：{" "}
+        <Code>[device].{name}</Code> （需啟用 Magic DNS）。
       </p>
       <Input
         className="w-3/5 text-sm font-medium"
@@ -33,8 +33,7 @@ export default function RenameTailnet({ name, isDisabled }: Props) {
         <DialogPanel isDisabled={isDisabled}>
           <Title>重新命名 Tailnet</Title>
           <Text className="mb-8">
-            Keep in mind that changing this can lead to all sorts of unexpected behavior and may
-            break existing devices in your tailnet.
+            變更網域名稱可能影響 Tailnet 中既有裝置的名稱解析與連線，請先確認相關設定。
           </Text>
           <input name="action_id" type="hidden" value="rename_tailnet" />
           <Input

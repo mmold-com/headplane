@@ -77,7 +77,7 @@ export default function Page({
     }
 
     if (fetcher.data.success === true) {
-      toast("Updated policy");
+      toast("原則已更新");
       revalidate();
     }
   }, [fetcher.data]);
@@ -93,8 +93,8 @@ export default function Page({
       return (
         <div className="p-4">
           <Notice title="無法以視覺化方式編輯此原則" variant="error">
-            The policy could not be parsed ({parsed.error}). Fix it in the <Code>編輯檔案</Code> tab
-            and the visual editor will come back.
+            無法解析原則 ({parsed.error}). 請在 <Code>編輯檔案</Code>{" "}
+            分頁修正後，即可重新使用視覺化編輯器。
           </Notice>
         </div>
       );
@@ -104,8 +104,7 @@ export default function Page({
       <div className="flex flex-col gap-4 p-4">
         {parsed.hasComments ? (
           <Notice title="註解將被移除" variant="warning">
-            This policy contains comments. Saving a change made in the visual editor rewrites the
-            policy and drops them.
+            此原則含有註解。儲存視覺化編輯器中的變更會重寫原則並移除註解。
           </Notice>
         ) : null}
         {render(parsed.policy)}
@@ -117,34 +116,30 @@ export default function Page({
     <div>
       {!access ? (
         <Notice title="ACL 原則權限受限" variant="warning">
-          You do not have the necessary permissions to edit the Access Control List policy. Please
-          contact your administrator to request access or to make changes to the ACL policy.
+          你沒有編輯存取控制清單的權限，請聯絡管理者申請權限或協助修改 ACL 原則。
         </Notice>
       ) : !writable ? (
         <Notice title="唯讀 ACL 原則" variant="error">
-          The ACL policy mode is most likely set to <Code>file</Code> in your Headscale
-          configuration. This means that the ACL file cannot be edited through the web interface. In
-          order to resolve this, you'll need to set <Code>policy.mode</Code> to{" "}
-          <Code>database</Code> in your Headscale configuration.
+          Headscale 設定中的 ACL 原則模式可能設為 <Code>file</Code> ，因此無法透過網頁介面編輯 ACL
+          檔案。若要啟用網頁管理，請將 Headscale 設定中的 <Code>policy.mode</Code> 設為{" "}
+          <Code>database</Code>。
         </Notice>
       ) : undefined}
       <h1 className="mb-4 text-2xl font-medium">存取控制清單（ACL）</h1>
       <p className="mb-4 max-w-prose">
-        The ACL file is used to define the access control rules for your network. You can find more
-        information about the ACL file in the{" "}
+        ACL 檔案用於定義網路的存取控制規則。詳細資訊請參閱{" "}
         <Link external styled to="https://tailscale.com/kb/1018/acls">
-          Tailscale ACL guide
+          Tailscale ACL 指南
         </Link>{" "}
-        and the{" "}
+        與{" "}
         <Link external styled to="https://headscale.net/stable/ref/acls/">
-          Headscale docs
+          Headscale 文件
         </Link>
         .
       </p>
       {fetcher.data?.error !== undefined ? (
-        <Notice title={fetcher.data.error.split(":")[0] ?? "Error"} variant="error">
-          {fetcher.data.error.split(":").slice(1).join(": ") ??
-            "An unknown error occurred while trying to update the ACL policy."}
+        <Notice title={fetcher.data.error.split(":")[0] ?? "錯誤"} variant="error">
+          {fetcher.data.error.split(":").slice(1).join(": ") ?? "更新 ACL 原則時發生未知錯誤。"}
         </Notice>
       ) : undefined}
       <Tabs className="mb-4" label="ACL 編輯器" defaultValue="rules">
@@ -215,10 +210,7 @@ export default function Page({
         <TabsPanel value="preview">
           <div className="flex flex-col items-center py-8">
             <Construction />
-            <p className="mt-4 w-1/2 text-center">
-              Previewing rules is not available yet. This feature is still in development and is
-              pretty complicated to implement. Hopefully I will be able to get to it soon.
-            </p>
+            <p className="mt-4 w-1/2 text-center">規則預覽功能仍在開發中，目前尚無法使用。</p>
           </div>
         </TabsPanel>
       </Tabs>
@@ -243,7 +235,7 @@ export default function Page({
           setCodePolicy(policy);
         }}
       >
-        Discard Changes
+        捨棄變更
       </Button>
     </div>
   );
@@ -264,23 +256,17 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
             <AlertCircle className="mb-2 h-6 w-6 text-red-500" />
           </div>
           <Card.Text>
-            The ACL policy is currently unavailable because the policy file does not exist on the
-            server. This usually indicates that Headscale is running in <Code>file</Code> mode for
-            ACLs, and the specified policy file is missing.
+            伺服器上找不到原則檔案，因此目前無法讀取 ACL 原則。這通常表示 Headscale 使用{" "}
+            <Code>file</Code> 模式管理 ACL，但指定的原則檔案不存在。
           </Card.Text>
         </Card>
         <Card className="max-w-2xl" variant="flat">
-          <Card.Text>
-            In order to resolve this issue, there are two possible actions you can take:
-          </Card.Text>
+          <Card.Text>可採取下列其中一種方式處理：</Card.Text>
           <ul className="mt-2 ml-4 list-outside list-disc space-y-1 text-sm">
+            <li>在 Headscale 設定所指定的路徑建立 ACL 原則檔案。</li>
             <li>
-              Create the ACL policy file at the specified path in your Headscale configuration.
-            </li>
-            <li>
-              Alternatively, you can switch Headscale to use <Code>database</Code> mode for ACLs by
-              updating your Headscale configuration. This will allow Headplane to manage the ACL
-              policy directly through the web interface.
+              或將 Headscale 的 ACL 原則模式切換為 <Code>database</Code> ，讓 Headplane
+              可直接透過網頁介面管理 ACL 原則。
             </li>
           </ul>
         </Card>
@@ -288,5 +274,5 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     );
   }
 
-  return <PageError error={error} page="Access Control" />;
+  return <PageError error={error} page="存取控制" />;
 }

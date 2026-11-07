@@ -23,17 +23,17 @@ export default function ManageBanner({ oidc, isDisabled }: ManageBannerProps) {
         <p className="text-sm text-mist-600 dark:text-mist-300">
           {oidc ? (
             <>
-              Users are managed through your{" "}
+              使用者由下列服務管理：{" "}
               <Link external styled to={oidc.issuer}>
-                OIDC provider
+                OIDC 身分提供者
               </Link>
               .
             </>
           ) : (
             <>
-              Users are managed locally.{" "}
+              使用者由本機管理。{" "}
               <Link styled to="https://headscale.net/stable/ref/oidc">
-                Set up OIDC
+                設定 OIDC
               </Link>
             </>
           )}

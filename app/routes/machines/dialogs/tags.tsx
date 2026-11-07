@@ -80,13 +80,13 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
         }}
         isDisabled={fetcher.state !== "idle"}
       >
-        <Title>Edit ACL tags for {machine.givenName}</Title>
+        <Title>編輯 {machine.givenName} 的 ACL 標籤</Title>
         <Text>
-          ACL tags can be used to reference machines in your ACL policies. See the{" "}
+          可使用 ACL 標籤在存取控制原則中指定裝置，詳見{" "}
           <Link external styled to="https://tailscale.com/kb/1068/acl-tags">
             Tailscale 使用說明
           </Link>{" "}
-          for more information.
+          以取得更多資訊。
         </Text>
         {error ? (
           <p className="mt-2 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
@@ -162,10 +162,9 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
         ) : null}
         {undeclaredTags.length > 0 ? (
           <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
-            {undeclaredTags.join(", ")} {undeclaredTags.length === 1 ? "is" : "are"} not declared
-            under <code className="font-mono">tagOwners</code> in your policy, so no rule will match{" "}
-            {undeclaredTags.length === 1 ? "it" : "them"}. Declare{" "}
-            {undeclaredTags.length === 1 ? "it" : "them"} in{" "}
+            {undeclaredTags.join(", ")} not declared under{" "}
+            <code className="font-mono">tagOwners</code> 中宣告，因此規則不會匹配 標籤。請先將 標籤
+            加入{" "}
             <Link styled to="/acls">
               存取控制
             </Link>
@@ -173,8 +172,7 @@ export default function Tags({ machine, isOpen, setIsOpen, existingTags, policyT
           </p>
         ) : null}
         <p className="mt-2 text-sm opacity-50">
-          Not seeing the tags you expect? Tags need to be defined in your access control policy
-          before they can be assigned to machines.
+          找不到預期的標籤？標籤必須先在存取控制原則中定義，才能指派給裝置。
         </p>
       </DialogPanel>
     </Dialog>

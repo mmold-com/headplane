@@ -49,30 +49,30 @@ export default function SshRuleDialog({
           setIsOpen(false);
         }}
       >
-        <Title>{rule ? "Edit SSH rule" : "New SSH rule"}</Title>
+        <Title>{rule ? "編輯 SSH 規則" : "新增 SSH 規則"}</Title>
         <Text>
-          SSH rules control Tailscale SSH access between nodes. Read the{" "}
+          SSH 規則控制節點之間的 Tailscale SSH 存取。請參閱{" "}
           <Link external styled to="https://tailscale.com/kb/1193/tailscale-ssh">
-            Tailscale SSH documentation
+            Tailscale SSH 文件
           </Link>{" "}
-          for details about check mode.
+          以了解定期重新驗證模式。
         </Text>
         <Select
           items={[
-            { value: "accept", label: "Accept — allow the session immediately" },
-            { value: "check", label: "Check — require periodic re-authentication" },
+            { value: "accept", label: "允許：立即建立工作階段" },
+            { value: "check", label: "驗證：要求定期重新驗證" },
             // An action we do not know is listed as-is so it survives an edit.
             ...(KNOWN_SSH_ACTIONS.includes(draft.action)
               ? []
-              : [{ value: draft.action, label: `${draft.action} — not known to Headplane` }]),
+              : [{ value: draft.action, label: `${draft.action}：Headplane 無法辨識的操作` }]),
           ]}
           label="操作"
           onValueChange={(value) => setDraft({ ...draft, action: value ?? draft.action })}
           value={draft.action}
         />
         <TokenList
-          description="Who is allowed to open the SSH session."
-          emptyText="No sources yet"
+          description="允許建立 SSH 工作階段的對象。"
+          emptyText="尚無來源"
           label="來源"
           onChange={(src) => setDraft({ ...draft, src })}
           placeholder="group:ops"
@@ -80,8 +80,8 @@ export default function SshRuleDialog({
           values={draft.src}
         />
         <TokenList
-          description="The nodes that accept the SSH session."
-          emptyText="No destinations yet"
+          description="允許接受 SSH 連線的節點。"
+          emptyText="尚無目的地"
           label="目的地"
           onChange={(dst) => setDraft({ ...draft, dst })}
           placeholder="tag:server"
@@ -89,8 +89,8 @@ export default function SshRuleDialog({
           values={draft.dst}
         />
         <TokenList
-          description="The local Unix users that may be logged into."
-          emptyText="No SSH users yet"
+          description="允許登入的本機 Unix 使用者。"
+          emptyText="尚無 SSH 使用者"
           label="SSH 使用者"
           onChange={(users) => setDraft({ ...draft, users })}
           placeholder="autogroup:nonroot"
@@ -99,8 +99,8 @@ export default function SshRuleDialog({
         />
         {draft.action === "check" ? (
           <Input
-            description="How long a check-mode session stays valid, for example 12h."
-            label="Check period"
+            description="定期重新驗證模式的工作階段有效時間，例如 12h。"
+            label="重新驗證週期"
             onChange={(checkPeriod) =>
               setDraft({ ...draft, checkPeriod: checkPeriod.length > 0 ? checkPeriod : undefined })
             }

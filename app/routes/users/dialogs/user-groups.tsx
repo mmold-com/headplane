@@ -73,18 +73,18 @@ export default function UserGroups({
           fetcher.submit(form, { method: "POST" });
         }}
       >
-        <Title>Edit ACL groups for {displayName}</Title>
+        <Title>編輯 {displayName} 的 ACL 群組</Title>
         <Text>
-          Groups live in the ACL policy, not in Headscale. Changing them here rewrites the{" "}
-          <code className="font-mono">groups</code> section of your policy. See the{" "}
+          群組儲存於 ACL 原則中，而非 Headscale 使用者資料。此處變更會重寫原則的{" "}
+          <code className="font-mono">groups</code> 區段，詳見{" "}
           <Link external styled to="https://tailscale.com/kb/1018/acls">
-            Tailscale ACL guide
+            Tailscale ACL 指南
           </Link>{" "}
-          for details.
+          以了解詳細內容。
         </Text>
         {policyHasComments ? (
           <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
-            Your policy contains comments. Saving here rewrites the policy and drops them.
+            目前原則含有註解。從此處儲存會重寫原則並移除註解。
           </p>
         ) : null}
         {error ? (
@@ -93,7 +93,7 @@ export default function UserGroups({
           </p>
         ) : null}
         <TokenList
-          emptyText="This user is not in any group"
+          emptyText="此使用者尚未加入任何群組"
           isDisabled={isSubmitting}
           label="群組"
           onChange={setSelected}

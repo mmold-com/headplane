@@ -114,10 +114,10 @@ export default function UserMenu({
             disabled={disabledKeys.includes("reassign")}
             onClick={() => setModal("reassign")}
           >
-            Change role
+            變更角色
           </MenuItem>
           <MenuItem onClick={() => setModal("link")}>
-            {isLinked ? "Change linked user" : "Link Headscale user"}
+            {isLinked ? "變更連結的使用者" : "連結 Headscale 使用者"}
           </MenuItem>
           {canEditGroups && user.linkedHeadscaleUser && (
             <MenuItem onClick={() => setModal("groups")}>編輯群組</MenuItem>
@@ -126,7 +126,7 @@ export default function UserMenu({
             <>
               <MenuSeparator />
               <MenuItem variant="danger" onClick={() => setModal("transfer")}>
-                Transfer ownership
+                移轉擁有權
               </MenuItem>
             </>
           )}

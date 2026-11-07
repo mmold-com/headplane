@@ -49,9 +49,7 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
   const principal = await auth.require(request);
 
   if (!auth.can(principal, Capabilities.read_machines)) {
-    throw new Error(
-      "You do not have permission to view this page. Please contact your administrator.",
-    );
+    throw new Error("你沒有檢視此頁面的權限，請聯絡管理者。");
   }
 
   const magic = headscaleConfig.getMagicDNSBaseDomain();
@@ -129,7 +127,7 @@ export default function Page({
     <div>
       <p className="text-md mb-8">
         <Link className="font-medium" to="/machines">
-          All Machines
+          所有裝置
         </Link>
         <span className="mx-2">/</span>
         {node.givenName}
@@ -158,14 +156,14 @@ export default function Page({
       <div className="mb-4 flex gap-1">
         <div className="border-r border-mist-100 p-2 pr-4 dark:border-mist-800">
           <span className="flex items-center gap-x-1 text-sm text-mist-600 dark:text-mist-300">
-            Managed by
-            <Tooltip content="By default, a machine’s permissions match its creator’s.">
+            管理者
+            <Tooltip content="裝置預設沿用建立者的權限。">
               <Info className="p-1" />
             </Tooltip>
           </span>
           <div className="mt-1 flex items-center gap-x-2.5">
             <UserCircle />
-            {node.user ? getUserDisplayName(node.user) : "Tag-owned"}
+            {node.user ? getUserDisplayName(node.user) : "由標籤管理"}
           </div>
         </div>
         <div className="p-2 pl-4">
@@ -182,7 +180,7 @@ export default function Page({
       <h2 className="mt-8 text-xl font-medium">子網路與路由</h2>
       <div className="mb-4 flex items-center justify-between">
         <p>
-          Subnets let you expose physical network routes onto Tailscale.{" "}
+          子網路可將實體網路路由提供給 Tailscale 使用。{" "}
           <Link external styled to="https://tailscale.com/kb/1019/subnets">
             了解更多
           </Link>
@@ -198,8 +196,8 @@ export default function Page({
       >
         <div>
           <span className="flex items-center gap-x-1 text-mist-600 dark:text-mist-300">
-            Approved
-            <Tooltip content="Traffic to these routes are being routed through this machine.">
+            已核准
+            <Tooltip content="前往這些路由的流量會經由此裝置轉送。">
               <Info className="h-3.5 w-3.5" />
             </Tooltip>
           </span>
@@ -224,8 +222,8 @@ export default function Page({
         </div>
         <div>
           <span className="flex items-center gap-x-1 text-mist-600 dark:text-mist-300">
-            Awaiting Approval
-            <Tooltip content="This machine is advertising these routes, but they must be approved before traffic will be routed to them.">
+            待核准
+            <Tooltip content="此裝置正在公告這些路由，必須先核准才能轉送流量。">
               <Info className="h-3.5 w-3.5" />
             </Tooltip>
           </span>
@@ -250,8 +248,8 @@ export default function Page({
         </div>
         <div>
           <span className="flex items-center gap-x-1 text-mist-600 dark:text-mist-300">
-            Exit Node
-            <Tooltip content="Whether this machine can act as an exit node for your tailnet.">
+            出口節點
+            <Tooltip content="此裝置是否可作為 Tailnet 的出口節點。">
               <Info className="h-3.5 w-3.5" />
             </Tooltip>
           </span>
@@ -261,12 +259,12 @@ export default function Page({
             ) : node.customRouting.exitApproved ? (
               <span className="flex items-center gap-x-1">
                 <CheckCircle className="h-3.5 w-3.5 text-green-700" />
-                Allowed
+                已允許
               </span>
             ) : (
               <span className="flex items-center gap-x-1">
                 <CircleSlash className="h-3.5 w-3.5 text-red-700" />
-                Awaiting Approval
+                待核准
               </span>
             )}
           </div>
@@ -280,9 +278,7 @@ export default function Page({
         </div>
       </Card>
       <h2 className="text-xl font-medium">裝置詳細資料</h2>
-      <p className="mb-4">
-        Information about this machine’s network. Used to debug connection issues.
-      </p>
+      <p className="mb-4">此裝置的網路資訊，可用於排查連線問題。</p>
       <Card
         className="grid w-full max-w-full grid-cols-1 gap-y-2 sm:gap-x-12 lg:grid-cols-2"
         variant="flat"
@@ -290,9 +286,9 @@ export default function Page({
         <div className="flex flex-col gap-1">
           <Attribute
             name="Creator"
-            value={node.user ? getUserDisplayName(node.user) : "Tag-owned"}
+            value={node.user ? getUserDisplayName(node.user) : "由標籤管理"}
           />
-          <Attribute name="Machine name" value={node.givenName} />
+          <Attribute name="裝置名稱" value={node.givenName} />
           <Attribute
             name="OS hostname"
             tooltip="OS hostname is published by the machine’s operating system and is used as the default name for the machine."
@@ -301,7 +297,7 @@ export default function Page({
           {stats ? (
             <>
               <Attribute name="OS" value={getOSInfo(stats)} />
-              <Attribute name="Tailscale version" value={getTSVersion(stats)} />
+              <Attribute name="Tailscale 版本" value={getTSVersion(stats)} />
             </>
           ) : undefined}
           <Attribute
@@ -311,18 +307,18 @@ export default function Page({
           />
           <Attribute
             isCopyable
-            name="Node key"
-            tooltip="Public key which uniquely identifies this machine."
+            name="節點金鑰"
+            tooltip="用於唯一識別此裝置的公開金鑰。"
             value={node.nodeKey}
           />
           <Attribute name="Created" value={new Date(node.createdAt).toLocaleString()} />
           <Attribute
-            name="Last Seen"
-            value={node.online ? "Connected" : new Date(node.lastSeen).toLocaleString()}
+            name="上次連線"
+            value={node.online ? "已連線" : new Date(node.lastSeen).toLocaleString()}
           />
           <Attribute
-            name="Key expiry"
-            value={!isNoExpiry(node.expiry) ? new Date(node.expiry!).toLocaleString() : "Never"}
+            name="金鑰到期時間"
+            value={!isNoExpiry(node.expiry) ? new Date(node.expiry!).toLocaleString() : "從未登入"}
           />
           {magic ? (
             <Attribute isCopyable name="Domain" value={`${node.givenName}.${magic}`} />
@@ -335,26 +331,26 @@ export default function Page({
           <Attribute
             isCopyable
             name="Tailscale IPv4"
-            tooltip="This machine’s IPv4 address within your tailnet (your private Tailscale network)."
+            tooltip="此裝置在 Tailnet（私人 Tailscale 網路）中的 IPv4 位址。"
             value={getIpv4Address(node.ipAddresses)}
           />
           <Attribute
             isCopyable
             name="Tailscale IPv6"
-            tooltip="This machine’s IPv6 address within your tailnet (your private Tailscale network). Connections within your tailnet support IPv6 even if your ISP does not."
+            tooltip="此裝置在 Tailnet 中的 IPv6 位址。即使網際網路服務業者不支援 IPv6，Tailnet 內部連線仍可使用 IPv6。"
             value={getIpv6Address(node.ipAddresses)}
           />
           <Attribute
             isCopyable
-            name="Short domain"
-            tooltip="Users of your tailnet can use this DNS short name to access this machine."
+            name="簡短網域名稱"
+            tooltip="Tailnet 使用者可透過此 DNS 簡稱存取此裝置。"
             value={node.givenName}
           />
           {magic ? (
             <Attribute
               isCopyable
-              name="Full domain"
-              tooltip="Users of your tailnet can use this DNS name to access this machine."
+              name="完整網域名稱"
+              tooltip="Tailnet 使用者可透過此完整 DNS 名稱存取此裝置。"
               value={`${node.givenName}.${magic}`}
             />
           ) : undefined}
@@ -364,16 +360,16 @@ export default function Page({
           {stats ? (
             <>
               <p className="mt-4 text-sm font-semibold text-mist-600 uppercase dark:text-mist-300">
-                Client Connectivity
+                用戶端連線狀態
               </p>
               <Attribute
                 name="Varies"
-                tooltip="Whether the machine is behind a difficult NAT that varies the machine’s IP address depending on the destination."
+                tooltip="裝置是否位於會依目的地改變對外 IP 位址的 NAT 環境中。"
                 value={stats.NetInfo?.MappingVariesByDestIP ? "Yes" : "No"}
               />
               <Attribute
                 name="Hairpinning"
-                tooltip="Whether the machine needs to traverse NATs with hairpinning."
+                tooltip="裝置是否需要透過 NAT 回送功能建立連線。"
                 value={stats.NetInfo?.HairPinning ? "Yes" : "No"}
               />
               <Attribute name="IPv6" value={stats.NetInfo?.WorkingIPv6 ? "Yes" : "No"} />

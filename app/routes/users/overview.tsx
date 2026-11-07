@@ -55,9 +55,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const principal = await auth.require(request);
   const check = await auth.can(principal, Capabilities.read_users);
   if (!check) {
-    throw new Error(
-      "You do not have permission to view this page. Please contact your administrator.",
-    );
+    throw new Error("你沒有檢視此頁面的權限，請聯絡管理者。");
   }
 
   const writablePermission = await auth.can(principal, Capabilities.write_users);
@@ -102,8 +100,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     }
   } catch (error) {
     log.warn("api", "Failed to fetch Headscale API data: %s", String(error));
-    apiError =
-      "Could not connect to the Headscale API. Headscale user data and machine information are unavailable.";
+    apiError = "無法連線至 Headscale API，目前無法取得使用者與裝置資訊。";
   }
 
   const useGravatar = config.oidc?.profile_picture_source === "gravatar";
@@ -210,9 +207,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <section>
         <h2 className="mb-3 text-lg font-medium">Headplane 使用者</h2>
         {loaderData.headplaneUsers.length === 0 ? (
-          <p className="text-sm text-mist-600 dark:text-mist-300">
-            No users have signed into Headplane yet.
-          </p>
+          <p className="text-sm text-mist-600 dark:text-mist-300">尚無使用者登入 Headplane。</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] table-auto rounded-lg">
@@ -255,8 +250,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         <section className="mt-10">
           <h2 className="mb-1 text-lg font-medium">尚未連結的 Headscale 使用者</h2>
           <p className="mb-3 text-sm text-mist-600 dark:text-mist-300">
-            These Headscale users are not linked to a Headplane account and cannot be managed
-            through Headplane.
+            這些 Headscale 使用者尚未連結 Headplane 帳號，因此無法透過 Headplane 管理。
           </p>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] table-auto rounded-lg">
@@ -296,5 +290,5 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  return <PageError error={error} page="Users" />;
+  return <PageError error={error} page="使用者" />;
 }

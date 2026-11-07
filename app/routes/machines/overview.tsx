@@ -46,9 +46,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const principal = await auth.require(request);
 
   if (!auth.can(principal, Capabilities.read_machines)) {
-    throw new Error(
-      "You do not have permission to view this page. Please contact your administrator.",
-    );
+    throw new Error("你沒有檢視此頁面的權限，請聯絡管理者。");
   }
 
   const writablePermission = auth.can(principal, Capabilities.write_machines);
@@ -244,7 +242,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         <div className="flex flex-col">
           <h1 className="mb-2 text-2xl font-medium">裝置</h1>
           <p>
-            Manage the devices connected to your Tailnet.{" "}
+            管理連線至 Tailnet 的裝置。{" "}
             <Link external styled to="https://tailscale.com/kb/1372/manage-devices">
               了解更多
             </Link>
@@ -314,7 +312,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                   onClick={() => handleSort("name")}
                   type="button"
                 >
-                  Name
+                  名稱
                   {sortField === "name" &&
                     (sortDirection === "asc" ? (
                       <ChevronUp className="h-3 w-3" />
@@ -355,8 +353,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
                     <Tooltip
                       content={
                         <span className="font-normal">
-                          Since MagicDNS is enabled, you can access devices based on their name and
-                          also at{" "}
+                          已啟用 Magic DNS，可透過裝置名稱存取，也可使用{" "}
                           <Code>
                             [name].
                             {loaderData.magic}
@@ -480,5 +477,5 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  return <PageError error={error} page="Machines" />;
+  return <PageError error={error} page="裝置" />;
 }

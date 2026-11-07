@@ -143,7 +143,7 @@ export function MachineFilters({ users, populatedNodes }: MachineFiltersProps): 
           onClick={clearFilters}
           type="button"
         >
-          Clear filters
+          清除篩選條件
           <X className="h-3.5 w-3.5" />
         </button>
       )}

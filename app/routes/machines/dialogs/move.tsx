@@ -20,7 +20,7 @@ export default function Move({ machine, users, isOpen, setIsOpen }: MoveProps) {
   return (
     <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
       <DialogPanel isDisabled={userId === machine.user?.id}>
-        <Title>Change the owner of {machine.givenName}</Title>
+        <Title>變更 {machine.givenName} 的擁有者</Title>
         <Text>裝置擁有者為與該裝置關聯的使用者。</Text>
         <input name="action_id" type="hidden" value="reassign" />
         <input name="node_id" type="hidden" value={machine.id} />

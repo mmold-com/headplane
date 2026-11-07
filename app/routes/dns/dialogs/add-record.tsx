@@ -31,8 +31,8 @@ export default function AddRecord({ records }: Props) {
       const lookup = records.find((r) => r.name === name);
       if (lookup?.value === ip) {
         return {
-          record_name: "This record already exists.",
-          record_value: "This record already exists.",
+          record_name: "此 DNS 紀錄已存在。",
+          record_value: "此 DNS 紀錄已存在。",
         };
       }
 
@@ -81,8 +81,7 @@ export default function AddRecord({ records }: Props) {
           />
           {isDuplicate ? (
             <p className="text-sm opacity-50">
-              A record with the domain name <Code>{name}</Code> and IP address <Code>{ip}</Code>{" "}
-              already exists.
+              網域名稱為 <Code>{name}</Code> 且 IP 位址為 <Code>{ip}</Code> 的紀錄已存在。
             </p>
           ) : undefined}
         </div>

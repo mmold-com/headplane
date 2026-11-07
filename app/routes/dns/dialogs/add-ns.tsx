@@ -36,7 +36,7 @@ export default function AddNameserver({ nameservers }: Props) {
         : Object.values(nameservers).some((nsList) => nsList.includes(ns));
 
       if (isDuplicate) {
-        return { ns: "This nameserver already exists." };
+        return { ns: "此名稱伺服器已存在。" };
       }
 
       return undefined;
@@ -52,7 +52,7 @@ export default function AddNameserver({ nameservers }: Props) {
         <input name="action_id" type="hidden" value="add_ns" />
         <Input
           {...form.field("ns")}
-          description="Use this IPv4 or IPv6 address to resolve names."
+          description="使用此 IPv4 或 IPv6 位址解析網域名稱。"
           required
           label="名稱伺服器"
           placeholder="1.2.3.4"
@@ -61,11 +61,11 @@ export default function AddNameserver({ nameservers }: Props) {
           <div className="block">
             <div className="inline-flex items-center gap-2">
               <Text className="font-semibold">限定網域</Text>
-              <Tooltip content="Only clients that support split DNS (Tailscale v1.8 or later for most platforms) will use this nameserver. Older clients will ignore it.">
+              <Tooltip content="只有支援分割 DNS 的用戶端（多數平台為 Tailscale v1.8 以上）會使用此名稱伺服器，舊版用戶端會忽略此設定。">
                 <Chip
                   className={cn("inline-flex items-center")}
                   leftIcon={<Split className="mr-0.5 h-3 w-3" />}
-                  text="Split DNS"
+                  text="分割 DNS"
                 />
               </Tooltip>
             </div>
@@ -84,8 +84,7 @@ export default function AddNameserver({ nameservers }: Props) {
             <Text className="mt-8 font-semibold">網域</Text>
             <Input {...form.field("split_name")} required label="網域" placeholder="example.com" />
             <Text className="text-sm">
-              Only single-label or fully-qualified queries matching this suffix should use the
-              nameserver.
+              只有符合此後綴的單一名稱或完整網域名稱查詢，才會使用此名稱伺服器。
             </Text>
           </>
         ) : (

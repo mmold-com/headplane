@@ -66,7 +66,7 @@ export default function HeadscaleUserRow({
           >
             <StatusCircle className="h-4 w-4" isOnline={isOnline} />
             <p suppressHydrationWarning>
-              {isOnline ? "Connected" : new Date(lastSeen).toLocaleString()}
+              {isOnline ? "已連線" : new Date(lastSeen).toLocaleString()}
             </p>
           </span>
         ) : (

@@ -15,10 +15,10 @@ export default function RenameUser({ user, isOpen, setIsOpen }: RenameProps) {
   return (
     <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
       <DialogPanel>
-        <Title>Rename {user.name || user.displayName}?</Title>
+        <Title>重新命名 {user.name || user.displayName}？</Title>
         <Text className="mb-6">
-          Enter a new username for {user.name || user.displayName}. Changing a username will not
-          update any ACL policies that may refer to this user by their old username.
+          輸入新的使用者名稱： {user.name || user.displayName}。變更使用者名稱後，引用舊名稱的 ACL
+          原則不會自動更新。
         </Text>
         <input name="action_id" type="hidden" value="rename_user" />
         <input name="headscale_user_id" type="hidden" value={user.id} />

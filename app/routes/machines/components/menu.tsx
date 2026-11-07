@@ -176,7 +176,7 @@ export default function MachineMenu({
                 )
               }
             >
-              {isNoExpiry(node.expiry) ? "Enable" : "Disable"} key expiry
+              {isNoExpiry(node.expiry) ? "啟用" : "停用"} 金鑰到期機制
             </MenuItem>
           )}
           <MenuItem onClick={() => setModal("routes")}>編輯路由設定</MenuItem>
@@ -187,7 +187,7 @@ export default function MachineMenu({
           <MenuSeparator />
           {!isNoExpiry(node.expiry) && (
             <MenuItem variant="danger" disabled={node.expired} onClick={() => setModal("expire")}>
-              Expire
+              設為到期
             </MenuItem>
           )}
           <MenuItem variant="danger" onClick={() => setModal("remove")}>

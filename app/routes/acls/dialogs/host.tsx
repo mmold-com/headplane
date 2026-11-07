@@ -47,15 +47,13 @@ export default function HostDialog({
           setIsOpen(false);
         }}
       >
-        <Title>{name ? `Edit host ${name}` : "New host"}</Title>
-        <Text>
-          Hosts give a name to an IP address or CIDR range so it can be referenced from rules.
-        </Text>
+        <Title>{name ? `編輯主機 ${name}` : "新增主機"}</Title>
+        <Text>為 IP 位址或 CIDR 網段設定主機別名，供規則引用。</Text>
         <Input
           errorMessage={
             isDuplicate
-              ? "A host with this name already exists."
-              : "Host names may only contain lowercase letters, numbers and dashes."
+              ? "A host with this name 的紀錄已存在。"
+              : "主機名稱只能包含小寫英文字母、數字與連字號。"
           }
           invalid={nameIsInvalid}
           label="名稱"

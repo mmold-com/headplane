@@ -110,13 +110,13 @@ export default function RulesEditor({
       ) : null}
 
       <Section
-        description="Rules are evaluated top to bottom. Traffic is denied unless a rule allows it."
+        description="規則由上而下判定；未明確允許的流量會遭拒絕。"
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "acl", index: null })}
         title="存取規則"
       >
         {policy.acls.length === 0 ? (
-          <Empty text="No access rules are defined yet." />
+          <Empty text="尚未定義存取規則。" />
         ) : (
           policy.acls.map((rule, index) => (
             <TableList.Item
@@ -126,7 +126,7 @@ export default function RulesEditor({
               <div className="flex min-w-0 flex-wrap items-center gap-2">
                 {/* An unknown action is shown verbatim, never relabelled. */}
                 <span className="text-xs font-semibold uppercase opacity-60">
-                  {rule.action === "accept" ? "Allow" : rule.action}
+                  {rule.action === "accept" ? "允許" : rule.action}
                 </span>
                 <ChipRow values={rule.src} />
                 <ArrowRight className="h-4 w-4 shrink-0 opacity-60" />
@@ -146,13 +146,13 @@ export default function RulesEditor({
       </Section>
 
       <Section
-        description="Control which nodes can be reached over Tailscale SSH and as which local user."
+        description="控制可透過 Tailscale SSH 連線的節點，以及允許登入的本機使用者。"
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "ssh", index: null })}
         title="SSH 規則"
       >
         {policy.ssh.length === 0 ? (
-          <Empty text="No SSH rules are defined yet." />
+          <Empty text="尚未定義 SSH 規則。" />
         ) : (
           policy.ssh.map((rule, index) => (
             <TableList.Item
@@ -181,13 +181,13 @@ export default function RulesEditor({
       </Section>
 
       <Section
-        description="Named IP addresses and CIDR ranges that can be referenced from rules."
+        description="設定可供規則引用的 IP 位址與 CIDR 網段別名。"
         isDisabled={isDisabled}
         onAdd={() => setEditing({ kind: "host", name: null })}
         title="主機"
       >
         {hostEntries.length === 0 ? (
-          <Empty text="No hosts are defined yet." />
+          <Empty text="尚未定義主機。" />
         ) : (
           hostEntries.map(([name, value]) => (
             <TableList.Item key={name}>

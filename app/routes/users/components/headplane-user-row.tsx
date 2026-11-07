@@ -72,7 +72,7 @@ export default function HeadplaneUserRow({
       </td>
       <td className="py-2 pl-0.5">
         <p className="text-sm text-mist-600 dark:text-mist-300" suppressHydrationWarning>
-          {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : "Never"}
+          {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : "從未登入"}
         </p>
       </td>
       <td className="py-2 pl-0.5">
@@ -82,7 +82,7 @@ export default function HeadplaneUserRow({
           >
             <StatusCircle className="h-4 w-4" isOnline={isOnline} />
             <p suppressHydrationWarning>
-              {isOnline ? "Connected" : new Date(lastSeen).toLocaleString()}
+              {isOnline ? "已連線" : new Date(lastSeen).toLocaleString()}
             </p>
           </span>
         ) : (
@@ -110,15 +110,15 @@ function mapRoleToName(role: Role) {
     case "owner":
       return "Owner";
     case "admin":
-      return "Admin";
+      return "管理員";
     case "network_admin":
-      return "Network Admin";
+      return "網路管理員";
     case "it_admin":
-      return "IT Admin";
+      return "資訊管理員";
     case "auditor":
-      return "Auditor";
+      return "稽核員";
     case "viewer":
-      return "Viewer";
+      return "檢視者";
     case "member":
       return <p className="opacity-50">成員</p>;
     default:

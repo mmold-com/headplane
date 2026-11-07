@@ -27,11 +27,10 @@ export default function Routes({ node, isOpen, setIsOpen }: RoutesProps) {
   return (
     <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
       <DialogPanel variant="unactionable">
-        <Title>Edit route settings of {node.givenName}</Title>
+        <Title>編輯 {node.givenName} 的路由設定</Title>
         <Text className="font-bold">子網路路由</Text>
         <Text>
-          Connect to devices you can&apos;t install Tailscale on by advertising IP ranges as subnet
-          routes.{" "}
+          將 IP 網段公告為子網路路由，即可連線至無法安裝 Tailscale 的裝置。{" "}
           <Link external styled to="https://tailscale.com/kb/1019/subnets">
             了解更多
           </Link>
@@ -66,7 +65,7 @@ export default function Routes({ node, isOpen, setIsOpen }: RoutesProps) {
         </TableList>
         <Text className="mt-8 font-bold">出口節點</Text>
         <Text>
-          Allow your network to route internet traffic through this machine.{" "}
+          允許網路透過此裝置轉送網際網路流量。{" "}
           <Link external styled to="https://tailscale.com/kb/1103/exit-nodes">
             了解更多
           </Link>
