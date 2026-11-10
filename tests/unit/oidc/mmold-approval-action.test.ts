@@ -28,7 +28,10 @@ function scenario(
   const actor = { kind: "oidc", profile: { email }, user: { role: "approver" } } as Principal;
   const setTags = vi.fn();
   const expire = vi.fn();
-  const api = { nodes: { get: vi.fn().mockResolvedValue({ ...node, tags }), setTags, expire } };
+  const rename = vi.fn();
+  const api = {
+    nodes: { get: vi.fn().mockResolvedValue({ ...node, tags }), setTags, expire, rename },
+  };
   context.set(authContext, { require: async () => actor } as never);
   context.set(appConfigContext, { server: { base_url: "https://mesh.mmold.com" } } as never);
   context.set(headscaleConfigContext, {
@@ -43,11 +46,17 @@ function scenario(
       request: new Request("https://mesh.mmold.com/admin/approvals", {
         method: "POST",
         headers: { Origin: origin },
-        body: new URLSearchParams({ node_id: "7", confirm_name: name, role: "factory", decision }),
+        body: new URLSearchParams({
+          node_id: "7",
+          confirm_name: name,
+          role: "factory",
+          new_name: "plant-a-edge-01",
+          decision,
+        }),
       }),
     } as never;
   }
-  return { args, setTags, expire };
+  return { args, setTags, expire, rename };
 }
 describe("approval action boundary", () => {
   it("lets an approver grant exactly one account-bound role", async () => {
@@ -72,5 +81,41 @@ describe("approval action boundary", () => {
     const approved = scenario(undefined, undefined, undefined, ["tag:factory-ffttyus"]);
     await expect(action(approved.args("reject"))).rejects.toBeDefined();
     expect(approved.expire).not.toHaveBeenCalled();
+  });
+});
+
+describe("factory management action boundary", () => {
+  it.each(["seuchong@gmail.com", "ffttyus@gmail.com", "mmold2005@gmail.com"])(
+    "allows %s to quarantine then expire a factory",
+    async (email) => {
+      const s = scenario(email, undefined, undefined, ["tag:factory-ffttyus"]);
+      await action(s.args("disable"));
+      expect(s.setTags).toHaveBeenCalledWith("7", ["tag:disabled-factory-ffttyus"]);
+      expect(s.expire).toHaveBeenCalledWith("7");
+      expect(s.setTags.mock.invocationCallOrder[0]).toBeLessThan(
+        s.expire.mock.invocationCallOrder[0],
+      );
+    },
+  );
+  it("renames approved and disabled factories without assigning any role", async () => {
+    for (const tag of ["tag:factory-ffttyus", "tag:disabled-factory-ffttyus"]) {
+      const s = scenario(undefined, undefined, undefined, [tag]);
+      await action(s.args("rename"));
+      expect(s.rename).toHaveBeenCalledWith("7", "plant-a-edge-01");
+      expect(s.setTags).not.toHaveBeenCalled();
+    }
+  });
+  it("rejects delegate operations on maintenance nodes and unauthorized accounts", async () => {
+    for (const decision of ["disable", "rename"]) {
+      for (const [email, tags] of [
+        ["hubert2047@gmail.com", ["tag:factory-ffttyus"]],
+        ["ffttyus@gmail.com", ["tag:maint-ffttyus"]],
+      ] as const) {
+        const s = scenario(email, undefined, undefined, [...tags]);
+        await expect(action(s.args(decision))).rejects.toBeDefined();
+        expect(s.setTags).not.toHaveBeenCalled();
+        expect(s.rename).not.toHaveBeenCalled();
+      }
+    }
   });
 });

@@ -15,8 +15,8 @@ export function deviceIdentity(node: Machine) {
   if (tags.length) {
     if (tags.length !== 1) return undefined;
     for (const account of MMOLD_ACCOUNTS) {
-      for (const role of ["maint", "factory"]) {
-        if (account === "seuchong" && role === "factory") continue;
+      for (const role of ["maint", "factory", "disabled-factory"]) {
+        if (account === "seuchong" && role !== "maint") continue;
         if (tags[0] === `tag:${role}-${account}`) return { email: `${account}@gmail.com`, role };
       }
     }
@@ -38,4 +38,19 @@ export function approvalTag(node: Machine, role: string, allowedUsers: string[])
   const name = identity.email.split("@")[0];
   if (name === "seuchong" && role === "factory") throw new Error("此帳號未配置工廠用途");
   return `tag:${role === "maintenance" ? "maint" : "factory"}-${name}`;
+}
+
+export function canOperateServices(principal: Principal) {
+  return (
+    principal.kind === "oidc" &&
+    principal.profile.email?.trim().toLowerCase() === "seuchong@gmail.com"
+  );
+}
+export function factoryDevice(identity: ReturnType<typeof deviceIdentity>) {
+  return identity?.role === "factory" || identity?.role === "disabled-factory";
+}
+export function validateDeviceName(value: string) {
+  if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(value))
+    throw new Error("主機名稱須為 1～63 字元，僅限小寫英文字母、數字及中間的連字號");
+  return value;
 }

@@ -1,4 +1,4 @@
-import { data, Form } from "react-router";
+import { data, Form, Link } from "react-router";
 
 import {
   appConfigContext,
@@ -8,7 +8,14 @@ import {
   requestApiContext,
 } from "~/server/context";
 import { nodesResource } from "~/server/headscale/live-store";
-import { approvalTag, canApprove, deviceIdentity } from "~/server/oidc/mmold-approval";
+import {
+  approvalTag,
+  canApprove,
+  canOperateServices,
+  deviceIdentity,
+  factoryDevice,
+  validateDeviceName,
+} from "~/server/oidc/mmold-approval";
 import log from "~/utils/log";
 
 import type { Route } from "./+types/approvals";
@@ -20,6 +27,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const { api } = await context.get(requestApiContext)(request);
   const nodes = await api.nodes.list();
   return {
+    services: canOperateServices(principal),
     nodes: nodes.map((node) => ({
       id: node.id,
       name: node.givenName,
@@ -52,6 +60,20 @@ export async function action({ request, context }: Route.ActionArgs) {
   if (kind === "reject") {
     if (identity?.role !== "pending") throw data("僅可拒絕尚未核准的申請", { status: 400 });
     await api.nodes.expire(id);
+  } else if (kind === "disable") {
+    if (!factoryDevice(identity)) throw data("僅可停用工廠設備", { status: 400 });
+    // Quarantine before expiring: Google reauthentication cannot restore its factory role.
+    await api.nodes.setTags(id, [`tag:disabled-factory-${identity!.email.split("@")[0]}`]);
+    await api.nodes.expire(id);
+  } else if (kind === "rename") {
+    if (!factoryDevice(identity)) throw data("僅可重新命名工廠設備", { status: 400 });
+    let name: string;
+    try {
+      name = validateDeviceName(String(form.get("new_name") ?? ""));
+    } catch (error) {
+      throw data(String(error), { status: 400 });
+    }
+    await api.nodes.rename(id, name);
   } else if (kind === "approve") {
     const role = String(form.get("role"));
     let tag: string;
@@ -76,7 +98,16 @@ export async function action({ request, context }: Route.ActionArgs) {
     form.get("role"),
   );
   await context.get(headscaleLiveStoreContext).refresh(nodesResource, api);
-  return { message: kind === "approve" ? "設備已核准，權限已套用" : "申請已拒絕，設備已設為到期" };
+  return {
+    message:
+      kind === "approve"
+        ? "設備已核准；已到期的設備須重新完成 Google 登入"
+        : kind === "disable"
+          ? "工廠設備已停用，須重新核准才會恢復權限"
+          : kind === "rename"
+            ? "工廠設備名稱已更新"
+            : "申請已拒絕，設備已設為到期",
+  };
 }
 
 export default function Approvals({ loaderData, actionData }: Route.ComponentProps) {
@@ -84,13 +115,19 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-medium">設備核准</h1>
       <p>
-        僅 seuchong@gmail.com、ffttyus@gmail.com、mmold2005@gmail.com 可核准。Google
-        驗證後先列為待核准；核准維護用途後可連工廠 TCP 22 與 443，工廠之間隔離。
+        僅 seuchong@gmail.com、ffttyus@gmail.com、mmold2005@gmail.com
+        可核准、停用及重新命名工廠設備。Google 驗證後先列為待核准；核准維護用途後可連工廠 TCP 22 與
+        443，工廠之間隔離。
       </p>
       <p>
         請先向現場核對設備名稱、VPN IP、Google
         帳號與實際用途，再選擇角色。請勿將工廠伺服器核准為維護端。
       </p>
+      {loaderData.services && (
+        <Link className="underline" to="/service-access">
+          MCP／API 專用金鑰（僅主要管理者）
+        </Link>
+      )}
       {actionData?.message && (
         <p role="status" className="rounded border p-3">
           {actionData.message}
@@ -111,9 +148,11 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
               ? "待核准（無工廠存取權）"
               : node.identity?.role === "maint"
                 ? "已核准：維護設備"
-                : node.identity?.role === "factory"
-                  ? "已核准：工廠設備"
-                  : "需人工檢查"}
+                : node.identity?.role === "disabled-factory"
+                  ? "已停用：工廠設備（無連線權限）"
+                  : node.identity?.role === "factory"
+                    ? "已核准：工廠設備"
+                    : "需人工檢查"}
           </p>
           {node.identity && (
             <Form method="post" className="flex flex-wrap items-center gap-3">
@@ -124,7 +163,7 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                 <select
                   name="role"
                   defaultValue={
-                    node.identity.role === "factory"
+                    factoryDevice(node.identity)
                       ? "factory"
                       : node.identity.role === "maint"
                         ? "maintenance"
@@ -150,6 +189,17 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
               >
                 核對完成，核准此用途
               </button>
+              {factoryDevice(node.identity) && node.identity.role !== "disabled-factory" && (
+                <button
+                  className="rounded border px-3 py-2"
+                  type="submit"
+                  name="decision"
+                  value="disable"
+                  formNoValidate
+                >
+                  停用工廠設備
+                </button>
+              )}
               {node.identity.role === "pending" && (
                 <button
                   className="rounded border px-3 py-2"
@@ -161,6 +211,32 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                   拒絕申請
                 </button>
               )}
+            </Form>
+          )}
+          {factoryDevice(node.identity) && (
+            <Form method="post" className="flex flex-wrap items-center gap-3">
+              <input type="hidden" name="node_id" value={node.id} />
+              <input type="hidden" name="confirm_name" value={node.name} />
+              <label>
+                工廠主機名稱：
+                <input
+                  className="rounded border bg-transparent p-2"
+                  name="new_name"
+                  defaultValue={node.name}
+                  required
+                  maxLength={63}
+                  pattern="[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?"
+                />
+              </label>
+              <button
+                className="rounded border px-3 py-2"
+                type="submit"
+                name="decision"
+                value="rename"
+              >
+                更新名稱
+              </button>
+              <p>例如 taichung-edge-01；名稱也會影響 Magic DNS，VPN IP 不變。</p>
             </Form>
           )}
         </div>
