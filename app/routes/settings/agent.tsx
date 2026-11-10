@@ -1,4 +1,4 @@
-import { useFetcher } from "react-router";
+import { data, useFetcher } from "react-router";
 
 import Button from "~/components/button";
 import Link from "~/components/link";
@@ -6,7 +6,8 @@ import Notice from "~/components/notice";
 import StatusCircle from "~/components/status-circle";
 import Text from "~/components/text";
 import Title from "~/components/title";
-import { agentsContext, authContext } from "~/server/context";
+import { agentsContext, appConfigContext, authContext } from "~/server/context";
+import { canOperateServices } from "~/server/oidc/mmold-approval";
 import { formatTimeDelta } from "~/utils/time";
 
 import type { Route } from "./+types/agent";
@@ -15,7 +16,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const agents = context.get(agentsContext);
   const auth = context.get(authContext);
 
-  await auth.require(request);
+  const principal = await auth.require(request);
+  if (!canOperateServices(principal)) throw data("僅主要管理者可操作 Agent", { status: 403 });
 
   if (agents.state !== "enabled") {
     return { enabled: false as const, reason: agents.reason };
@@ -35,7 +37,14 @@ export async function action({ request, context }: Route.ActionArgs) {
   const agents = context.get(agentsContext);
   const auth = context.get(authContext);
 
-  await auth.require(request);
+  const principal = await auth.require(request);
+  if (!canOperateServices(principal)) throw data("僅主要管理者可操作 Agent", { status: 403 });
+
+  if (
+    request.method !== "POST" ||
+    request.headers.get("Origin") !== new URL(context.get(appConfigContext).server.base_url!).origin
+  )
+    throw data("要求來源不符", { status: 403 });
 
   if (agents.state !== "enabled") {
     return { success: false, error: agents.reason };
@@ -59,9 +68,9 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <div className="flex max-w-(--breakpoint-lg) flex-col gap-8">
         <Title>Headplane Agent</Title>
         <Notice title="Agent 尚未啟用">
-          {loaderData.reason}. To learn how to set up the agent, visit the{" "}
+          {loaderData.reason}。設定方式請參閱
           <Link external styled to="https://headplane.net/features/agent">
-            documentation
+            官方說明
           </Link>
         </Notice>
       </div>
@@ -81,7 +90,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <div className="flex items-center gap-3">
         <StatusCircle isOnline={!hasError && !isPending} className="h-5 w-5" />
         <span className="text-lg font-medium">
-          {hasError ? "Error" : isPending ? "Waiting for approval" : "Healthy"}
+          {hasError ? "同步異常" : isPending ? "等待核准" : "同步正常"}
         </span>
       </div>
 
@@ -91,7 +100,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
           {loaderData.syncedAt ? (
             <span suppressHydrationWarning>{formatTimeDelta(new Date(loaderData.syncedAt))}</span>
           ) : (
-            "Never"
+            "尚未同步"
           )}
         </Text>
         <Text>
@@ -102,12 +111,11 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 
       {isPending ? (
         <Notice variant="warning" title="Agent 等待核准">
-          The agent is waiting for its Tailnet registration to be approved. Headplane will attempt
-          to auto-approve it, but if that fails, you can complete approval by visiting{" "}
+          Agent 正等待系統節點註冊核准。Headplane 會嘗試自動核准；若未成功，可開啟
           <Link external styled to={loaderData.authUrl!}>
-            this link
+            註冊連結
           </Link>
-          .
+          。
         </Notice>
       ) : undefined}
 
@@ -119,7 +127,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 
       <fetcher.Form method="post">
         <Button type="submit" variant="heavy" disabled={isSyncing}>
-          {isSyncing ? "Syncing…" : "Sync Now"}
+          {isSyncing ? "同步中…" : "立即同步"}
         </Button>
       </fetcher.Form>
     </div>

@@ -143,7 +143,11 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
             {node.ip} · {node.online ? "已連線" : "離線"}
           </p>
           <p>
-            {node.identity?.email ?? "無法辨識的設備身分"} ·{" "}
+            {node.identity?.email ??
+              (node.tags?.includes("tag:headplane-agent")
+                ? "Headplane 系統 Agent"
+                : "無法辨識的設備身分")}{" "}
+            ·{" "}
             {node.identity?.role === "pending"
               ? "待核准（無工廠存取權）"
               : node.identity?.role === "maint"
@@ -152,7 +156,9 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                   ? "已停用：工廠設備（無連線權限）"
                   : node.identity?.role === "factory"
                     ? "已核准：工廠設備"
-                    : "需人工檢查"}
+                    : node.tags?.length === 1 && node.tags[0] === "tag:headplane-agent"
+                      ? "已啟用：資訊同步專用系統節點"
+                      : "需人工檢查"}
           </p>
           {node.identity && (
             <Form method="post" className="flex flex-wrap items-center gap-3">
