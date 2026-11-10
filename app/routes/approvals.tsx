@@ -123,9 +123,19 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                 核准用途：
                 <select
                   name="role"
-                  defaultValue={node.identity.role === "factory" ? "factory" : "maintenance"}
+                  defaultValue={
+                    node.identity.role === "factory"
+                      ? "factory"
+                      : node.identity.role === "maint"
+                        ? "maintenance"
+                        : ""
+                  }
+                  required
                   className="rounded border bg-transparent p-2"
                 >
+                  <option value="" disabled>
+                    請明確選擇設備用途
+                  </option>
                   <option value="maintenance">維護設備（可連工廠 SSH／HTTPS）</option>
                   {node.identity.email !== "seuchong@gmail.com" && (
                     <option value="factory">工廠設備（僅接受維護連線）</option>
@@ -146,6 +156,7 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                   type="submit"
                   name="decision"
                   value="reject"
+                  formNoValidate
                 >
                   拒絕申請
                 </button>
