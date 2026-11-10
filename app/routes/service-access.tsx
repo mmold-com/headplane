@@ -7,7 +7,11 @@ import log from "~/utils/log";
 
 import type { Route } from "./+types/service-access";
 
-const headers = { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" };
+const secureHeaders = { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" };
+export function headers() {
+  return secureHeaders;
+}
+
 export async function loader({ request, context }: Route.LoaderArgs) {
   const principal = await context.get(authContext).require(request);
   if (!canOperateServices(principal))
@@ -18,7 +22,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
         ({ hash: _hash, ...r }) => r,
       ),
     },
-    { headers },
+    { headers: secureHeaders },
   );
 }
 export async function action({ request, context }: Route.ActionArgs) {
@@ -36,7 +40,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     const id = String(form.get("id"));
     revokeServiceToken(config.server.data_path, id);
     log.info("auth", "service_token_revoke actor=seuchong@gmail.com id=%s", id);
-    return data({ token: undefined, message: "金鑰已撤銷" }, { headers });
+    return data({ token: undefined, message: "金鑰已撤銷" }, { headers: secureHeaders });
   }
   if (decision !== "create") throw data("操作不正確", { status: 400 });
   let result;
@@ -52,7 +56,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   log.info("auth", "service_token_create actor=seuchong@gmail.com id=%s", result.record.id);
   return data(
     { token: result.token, message: "金鑰只顯示這一次，請存入你使用的密碼管理工具。" },
-    { headers },
+    { headers: secureHeaders },
   );
 }
 export default function ServiceAccess({ loaderData, actionData }: Route.ComponentProps) {
