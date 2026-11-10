@@ -26,6 +26,7 @@ export default [
       route("/:id", "routes/machines/machine.tsx"),
     ]),
 
+    route("/approvals", "routes/approvals.tsx"),
     route("/users", "routes/users/overview.tsx"),
     route("/acls", "routes/acls/overview.tsx"),
     route("/dns", "routes/dns/overview.tsx"),

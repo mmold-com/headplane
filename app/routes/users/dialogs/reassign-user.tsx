@@ -62,6 +62,8 @@ export default function ReassignUser({
 
 function mapRoleToName(role: string) {
   switch (role) {
+    case "approver":
+      return { name: "設備核准人員", desc: "僅可查看設備與使用者，並使用專屬設備核准頁。" };
     case "admin":
       return {
         name: "管理員",

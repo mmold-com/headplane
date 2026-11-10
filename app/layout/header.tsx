@@ -30,6 +30,7 @@ export interface HeaderProps {
     picture?: string;
   };
   access: {
+    approvals: boolean;
     ui: boolean;
     machines: boolean;
     dns: boolean;
@@ -41,6 +42,7 @@ export interface HeaderProps {
 }
 
 const tabs = [
+  { to: "/approvals", icon: Check, label: "設備核准", key: "approvals" },
   { to: "/machines", icon: Server, label: "裝置", key: "machines" },
   { to: "/users", icon: Users, label: "使用者", key: "users" },
   { to: "/acls", icon: Lock, label: "存取控制", key: "policy" },

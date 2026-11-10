@@ -8,7 +8,7 @@ import {
   oidcContext,
 } from "~/server/context";
 import { headscaleErrorMessage } from "~/server/headscale/api/error-client";
-import { isMmoldOwner } from "~/server/oidc/mmold-owner";
+import { isMmoldOwner, isMmoldApprover } from "~/server/oidc/mmold-owner";
 import { logOidcError } from "~/server/oidc/provider";
 import { findHeadscaleUserBySubject } from "~/server/web/headscale-identity";
 import { Roles } from "~/server/web/roles";
@@ -62,14 +62,23 @@ export async function loader({ request, context, url }: Route.LoaderArgs) {
   }
 
   const identity = result.value;
-  if (!isMmoldOwner(identity, process.env.MMOLD_OWNER_EMAIL)) {
+  if (!isMmoldApprover(identity, process.env.MMOLD_OWNER_EMAIL)) {
     log.warn("auth", "MMold management login denied: verified Google owner required");
-    throw data("此管理介面僅限已驗證的 Google 管理者帳號使用。VPN 使用申請請洽管理者核准。", {
-      status: 403,
-    });
+    throw data(
+      "此管理介面僅限三位 Google 設備核准人員使用。一般使用者請從 Tailscale 提出設備申請。",
+      {
+        status: 403,
+      },
+    );
   }
-  const claimedRole =
-    identity.role && identity.role !== "owner" && identity.role in Roles
+  const mmoldDelegate =
+    !!process.env.MMOLD_OWNER_EMAIL && !isMmoldOwner(identity, process.env.MMOLD_OWNER_EMAIL);
+  if (mmoldDelegate && !(await auth.listUsers()).some((user) => user.role === "owner")) {
+    throw data("請先由 seuchong@gmail.com 初始化管理者帳號", { status: 403 });
+  }
+  const claimedRole = mmoldDelegate
+    ? "approver"
+    : identity.role && identity.role !== "owner" && identity.role in Roles
       ? identity.role
       : undefined;
 

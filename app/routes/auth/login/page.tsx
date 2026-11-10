@@ -151,7 +151,9 @@ export default function Page({ loaderData, actionData }: Route.ComponentProps) {
           <Card.Title>歡迎使用 Headplane</Card.Title>
           {googleOnly ? (
             <Card.Text>
-              請使用 Google 帳號登入。管理介面僅限管理者；VPN 使用者須先經 seuchong@gmail.com 核准。
+              請使用 Google 帳號登入。管理介面僅限
+              seuchong@gmail.com、ffttyus@gmail.com、mmold2005@gmail.com；一般設備請從 Tailscale
+              完成 Google 驗證後等待核准。
             </Card.Text>
           ) : (
             <Form method="POST">

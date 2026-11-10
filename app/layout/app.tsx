@@ -12,6 +12,7 @@ import {
 } from "~/server/context";
 import { isDataUnauthorizedError } from "~/server/headscale/api/error-client";
 import { usersResource } from "~/server/headscale/live-store";
+import { canApprove } from "~/server/oidc/mmold-approval";
 import { isUserPrincipal } from "~/server/web/auth";
 import { Capabilities } from "~/server/web/roles";
 import log from "~/utils/log";
@@ -94,6 +95,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
     return {
       access: {
+        approvals: canApprove(principal),
         dns: auth.can(principal, Capabilities.read_network),
         machines: auth.can(principal, Capabilities.read_machines),
         policy: auth.can(principal, Capabilities.read_policy),

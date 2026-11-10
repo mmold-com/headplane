@@ -96,6 +96,8 @@ export const Roles = {
     Capabilities.read_users |
     Capabilities.generate_own_authkeys,
 
+  approver: Capabilities.ui_access | Capabilities.read_machines | Capabilities.read_users,
+
   // No access — user exists but has not been granted any role
   member: 0,
 } as const;

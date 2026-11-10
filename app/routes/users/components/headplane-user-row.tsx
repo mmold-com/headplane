@@ -109,6 +109,8 @@ function mapRoleToName(role: Role) {
   switch (role) {
     case "owner":
       return "擁有者";
+    case "approver":
+      return "設備核准人員";
     case "admin":
       return "管理員";
     case "network_admin":

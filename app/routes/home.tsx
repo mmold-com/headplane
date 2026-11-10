@@ -31,6 +31,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const headscaleLiveStore = context.get(headscaleLiveStoreContext);
 
   const principal = await auth.require(request);
+  if (process.env.MMOLD_OWNER_EMAIL) return redirect("/approvals");
 
   // If the signed-in Headplane user has no linked Headscale user,
   // check for unclaimed users they can pick from before anything else.
