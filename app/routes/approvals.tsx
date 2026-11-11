@@ -16,6 +16,7 @@ import {
   factoryDevice,
   validateDeviceName,
 } from "~/server/oidc/mmold-approval";
+import { isSameOriginPost } from "~/server/web/csrf";
 import log from "~/utils/log";
 
 import type { Route } from "./+types/approvals";
@@ -43,10 +44,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   const principal = await context.get(authContext).require(request);
   if (!canApprove(principal)) throw data("無設備核准權限", { status: 403 });
   const config = context.get(appConfigContext);
-  if (
-    request.method !== "POST" ||
-    request.headers.get("Origin") !== new URL(config.server.base_url!).origin
-  )
+  if (!isSameOriginPost(request, config.server.base_url!))
     throw data("要求來源不符", { status: 403 });
   const form = await request.formData();
   const id = String(form.get("node_id") ?? "");

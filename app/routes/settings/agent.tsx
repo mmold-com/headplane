@@ -8,6 +8,7 @@ import Text from "~/components/text";
 import Title from "~/components/title";
 import { agentsContext, appConfigContext, authContext } from "~/server/context";
 import { canOperateServices } from "~/server/oidc/mmold-approval";
+import { isSameOriginPost } from "~/server/web/csrf";
 import { formatTimeDelta } from "~/utils/time";
 
 import type { Route } from "./+types/agent";
@@ -40,10 +41,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   const principal = await auth.require(request);
   if (!canOperateServices(principal)) throw data("僅主要管理者可操作 Agent", { status: 403 });
 
-  if (
-    request.method !== "POST" ||
-    request.headers.get("Origin") !== new URL(context.get(appConfigContext).server.base_url!).origin
-  )
+  if (!isSameOriginPost(request, context.get(appConfigContext).server.base_url!))
     throw data("要求來源不符", { status: 403 });
 
   if (agents.state !== "enabled") {

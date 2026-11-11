@@ -21,6 +21,8 @@ import { extname, normalize, resolve, sep } from "node:path";
 import mime from "mime";
 import pino from "pino";
 
+import { BROWSER_ORIGIN_HEADER } from "../app/server/web/csrf";
+
 export interface Logger {
   info: (msg: string, ...args: unknown[]) => void;
   error: (msg: string, ...args: unknown[]) => void;
@@ -137,6 +139,10 @@ function createStaticHandler(opts: StaticOptions) {
 // PR: https://github.com/remix-run/react-router/pull/15419
 export function alignOriginScheme(req: IncomingMessage) {
   const { origin, host } = req.headers;
+  // Never trust a forwarded copy supplied by a caller. Preserve the actual browser
+  // header before the React Router HTTP-transport compatibility rewrite below.
+  delete req.headers[BROWSER_ORIGIN_HEADER];
+  if (typeof origin === "string") req.headers[BROWSER_ORIGIN_HEADER] = origin;
   if (!origin || !host || origin === "null") {
     return;
   }

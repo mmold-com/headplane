@@ -21,6 +21,8 @@ This release contains an important security update for Headplane that protects a
 
 ## Fixes
 
+- 修正 MMold 經 HTTPS 反向代理操作立即同步、設備核准及專用金鑰表單時，誤回應來源不符 403 的問題；保留瀏覽器原始來源驗證及管理者限制。
+
 - Docker images now ship Node.js 24.22.1 and an agent built on Go 1.27.3 (fixes [GHSA-jhh3-g853-mxjc](https://github.com/tale/headplane/security/advisories/GHSA-jhh3-g853-mxjc), reported by [@trouze](https://github.com/trouze)).
 - A machine's page now requires permission to view machines, like the machines list. Previously anyone signed in could open it by its address.
 - The agent no longer creates a new auth key everytime it starts, which caused duplicate machines to be registered on Headscale 0.28.

@@ -1,9 +1,18 @@
+import type { IncomingMessage } from "node:http";
+
 import { RouterContextProvider } from "react-router";
 import { describe, expect, it, vi } from "vitest";
 
 import { loader, action } from "~/routes/settings/agent";
 import { agentsContext, appConfigContext, authContext } from "~/server/context";
-function fixture(email: string, origin = "https://mesh.mmold.com") {
+
+import { alignOriginScheme } from "../../../runtime/http";
+function fixture(email: string, origin = "https://mesh.mmold.com", proxy = false) {
+  const raw = {
+    headers: { host: "mesh.mmold.com", origin },
+    socket: {},
+  } as unknown as IncomingMessage;
+  if (proxy) alignOriginScheme(raw);
   const context = new RouterContextProvider();
   const sync = vi.fn();
   context.set(authContext, {
@@ -21,7 +30,7 @@ function fixture(email: string, origin = "https://mesh.mmold.com") {
       params: {},
       request: new Request("https://mesh.mmold.com/admin/settings/agent", {
         method: "POST",
-        headers: { Origin: origin },
+        headers: raw.headers as Record<string, string>,
       }),
     } as never,
   };
@@ -36,6 +45,11 @@ describe("Agent owner control", () => {
       expect(f.sync).not.toHaveBeenCalled();
     },
   );
+  it("permits an owner sync through the real TLS proxy normalization", async () => {
+    const f = fixture("seuchong@gmail.com", "https://mesh.mmold.com", true);
+    await action(f.args);
+    expect(f.sync).toHaveBeenCalledOnce();
+  });
   it("permits owner sync and rejects cross-origin requests", async () => {
     const f = fixture("seuchong@gmail.com");
     await action(f.args);

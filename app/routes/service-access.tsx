@@ -3,6 +3,7 @@ import { data, Form } from "react-router";
 import { appConfigContext, authContext } from "~/server/context";
 import { canOperateServices } from "~/server/oidc/mmold-approval";
 import { createServiceToken, readTokens, revokeServiceToken } from "~/server/oidc/service-tokens";
+import { isSameOriginPost } from "~/server/web/csrf";
 import log from "~/utils/log";
 
 import type { Route } from "./+types/service-access";
@@ -29,10 +30,7 @@ export async function action({ request, context }: Route.ActionArgs) {
   const principal = await context.get(authContext).require(request);
   if (!canOperateServices(principal)) throw data("無 MCP／API 權限", { status: 403 });
   const config = context.get(appConfigContext);
-  if (
-    request.method !== "POST" ||
-    request.headers.get("Origin") !== new URL(config.server.base_url!).origin
-  )
+  if (!isSameOriginPost(request, config.server.base_url!))
     throw data("要求來源不符", { status: 403 });
   const form = await request.formData();
   const decision = String(form.get("decision"));
