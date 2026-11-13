@@ -114,8 +114,8 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
       <h1 className="text-2xl font-medium">設備核准</h1>
       <p>
         僅 seuchong@gmail.com、ffttyus@gmail.com、mmold2005@gmail.com
-        可核准、停用及重新命名工廠設備。Google 驗證後先列為待核准；核准維護用途後可連工廠 TCP 22 與
-        443，工廠之間隔離。
+        可核准、停用及重新命名工廠設備。Google 驗證後先列為待核准；核准維護用途後可連工廠 TCP
+        22、80、443、18473、8006，工廠之間隔離。
       </p>
       <p>
         請先向現場核對設備名稱、VPN IP、Google
@@ -179,7 +179,7 @@ export default function Approvals({ loaderData, actionData }: Route.ComponentPro
                   <option value="" disabled>
                     請明確選擇設備用途
                   </option>
-                  <option value="maintenance">維護設備（可連工廠 SSH／HTTPS）</option>
+                  <option value="maintenance">維護設備（可連工廠 SSH／Web 服務）</option>
                   {node.identity.email !== "seuchong@gmail.com" && (
                     <option value="factory">工廠設備（僅接受維護連線）</option>
                   )}

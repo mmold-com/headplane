@@ -91,7 +91,9 @@ export async function loader({ request, context, url }: Route.LoaderArgs) {
     },
     {
       initialRole: claimedRole ?? config.oidc?.default_role,
-      syncRole: claimedRole,
+      // Existing MMold delegates retain roles explicitly assigned by the owner.
+      // Only their first login defaults to approver.
+      syncRole: mmoldDelegate ? undefined : claimedRole,
     },
   );
 

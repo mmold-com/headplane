@@ -2,6 +2,8 @@
 
 ## Changes
 
+- 維護設備到工廠的 VPN 服務埠調整為 TCP 22、80、443、18473、8006，工廠間隔離不變。
+
 - MMold 啟用資訊同步專用 Headplane Agent，管理操作限定主要管理者，並標示系統節點與中文同步狀態。
 
 - MMold 管理者可建立及撤銷 MCP／API 專用金鑰；三位核准者可停用及重新命名工廠設備，停用後保持隔離。
@@ -20,6 +22,8 @@
 This release contains an important security update for Headplane that protects against the [compromised eMudhra intermediate CAs](https://emudhra.com/en/post/certificate-security-incident) with Node.js 24.22.1 and Go 1.27.3. Any native installations should also upgrade to these versions and rebuild the agent.
 
 ## Fixes
+
+- MMold Google 核准者重新登入時保留主要管理者手動指定的角色，新帳號仍預設設備核准人員；MCP／API 權限仍僅主要管理者。
 
 - 修正 MMold 經 HTTPS 反向代理操作立即同步、設備核准及專用金鑰表單時，誤回應來源不符 403 的問題；保留瀏覽器原始來源驗證及管理者限制。
 
